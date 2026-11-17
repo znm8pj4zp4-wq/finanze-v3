@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#f6f7fa"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Finanze">
-<meta name="description" content="Il tuo bilancio personale, con movimenti, grafici e patrimonio. Dati salvati sul dispositivo.">
+<meta name="description" content="Il tuo bilancio personale, con movimenti, grafici e patrimonio. Versione di prova della sincronizzazione con Supabase.">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png" type="image/png">
 <title>Finanze · Il mio bilancio</title>
 <style>
@@ -31,6 +31,25 @@ body { padding-bottom:20px; background:#f6f7fa; }
 .v3-hidden { display:none !important; }
 @media (prefers-color-scheme:dark) { body { background:#101923; } .v3-panel { background:#1c2a38; } .v3-panel h1 { color:#f6f8fb; } .v3-intro,.v3-muted { color:#a2b0bd; } .v3-label { color:#c5d3dc; } .v3-field { background:#182431; color:#f4f8fa; border-color:#3a4a58; } .v3-user { background:#26394a; color:#eef4f6; } .v3-note { background:#193b38; color:#c8e6da; } }
 
+
+/* Finanze v3: test controllato di lettura/scrittura cloud */
+.v3-probe { margin:20px 0 4px; border:1px solid #d8e8e5; border-radius:16px; padding:17px; background:#f7faf9; }
+.v3-probe h2 {font-size:17px; margin:0 0 7px;color:#18364a}
+.v3-probe p {font-size:12px; line-height:1.55;color:#526a75; margin:0 0 12px}
+.v3-probe-status {border-radius:11px; background:#e7f5f0; color:#1a715f; padding:11px; margin:10px 0; font-size:12px; line-height:1.55; overflow-wrap:anywhere}
+.v3-probe-status.error {background:#fcecef;color:#aa4055}
+.v3-small-btn {display:block; width:100%; padding:12px; margin-top:10px; border-radius:12px; font-size:12px; font-weight:750; background:#fff; color:#1b5960; border:1px solid #cfdedc}
+.v3-small-btn.red {color:#a13c49;border-color:#edc6cb;background:#fff7f8}
+.v3-small-btn:disabled {opacity:.48; cursor:not-allowed}
+.v3-probe .v3-submit {margin-top:10px}
+@media (prefers-color-scheme:dark) {
+ .v3-probe{background:#1b303a;border-color:#395259}
+ .v3-probe h2{color:#e7f6f2}.v3-probe p{color:#b6c9cc}
+ .v3-probe-status{background:#204b41;color:#c2ead9}.v3-probe-status.error{background:#54303a;color:#ffd9e0}
+ .v3-small-btn{background:#263d47;color:#d9f1f1;border-color:#49616b}
+ .v3-small-btn.red{background:#4b303a;color:#ffe1e7;border-color:#895362}
+}
+
 </style>
 </head>
 <body>
@@ -38,7 +57,7 @@ body { padding-bottom:20px; background:#f6f7fa; }
 <section class="v3-wrap" id="v3AuthRoot">
  <div class="v3-panel">
   <div class="v3-mark" aria-hidden="true">€</div>
-  <div class="v3-eyebrow">FINANZE V3 · TEST DI ACCESSO</div>
+  <div class="v3-eyebrow">FINANZE V3 · TEST SINCRONIZZAZIONE</div>
   <h1 id="v3Title">Benvenuto</h1>
   <p class="v3-intro" id="v3Description">Accedi con l'account che hai creato in Supabase.</p>
   <section id="v3Config" class="v3-hidden">
@@ -62,11 +81,19 @@ body { padding-bottom:20px; background:#f6f7fa; }
   <section id="v3Success" class="v3-hidden">
    <p class="v3-label">Account autenticato</p>
    <div class="v3-user" id="v3UserEmail"></div>
-   <div class="v3-note">Accesso verificato. <strong>La sincronizzazione cloud non è ancora attiva.</strong> Questa è una schermata di test: non inserire qui movimenti o dati finanziari.</div>
+   <div class="v3-note">Account autenticato. Questo test scrive <strong>solo un movimento dimostrativo di 1,23 €</strong> su Supabase. I dati di Finanze v2 rimangono intatti.</div>
+   <section class="v3-probe" aria-labelledby="v3ProbeTitle">
+    <h2 id="v3ProbeTitle">Sincronizzazione cloud</h2>
+    <p>Verifichiamo lettura, salvataggio e cancellazione di un movimento di prova. Le altre funzioni dell'app sono ancora disattivate.</p>
+    <div class="v3-probe-status" id="v3ProbeState" role="status" aria-live="polite">Connessione al database in corso…</div>
+    <button class="v3-small-btn" id="v3ProbeRead" type="button">1. Controlla i dati nel cloud</button>
+    <button class="v3-submit" id="v3ProbeWrite" type="button">2. Salva spesa di prova da 1,23 €</button>
+    <button class="v3-small-btn red" id="v3ProbeDelete" type="button" disabled>3. Elimina la spesa di prova</button>
+   </section>
    <button type="button" class="v3-submit" id="v3LogoutBtn">Esci dall'account</button>
   </section>
   <div role="status" aria-live="polite" id="v3Status" class="v3-message"></div>
-  <p class="v3-muted">Questa versione non legge né modifica i dati della v2. Il codice originale è conservato, ma temporaneamente disattivato durante il test di autenticazione.</p>
+  <p class="v3-muted">Questa versione non legge né modifica i dati della v2. Il codice originale è conservato ma inattivo durante il test cloud. Il movimento di prova è salvato esclusivamente in Supabase.</p>
  </div>
 </section>
 
@@ -129,10 +156,112 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
   'use strict';
   const SUPABASE_URL = 'https://jifxymefooljkaldzpxh.supabase.co';
   const CONFIG_STORAGE = 'finanze_v3_test_publishable_key';
+  const TEST_MARKER = 'finanze_v3_sync_probe_v1';
+  const TEST_DESCRIPTION = 'TEST FINANZE V3 - NON E UNA SPESA REALE';
   const $ = id => document.getElementById(id);
   let client = null;
   let initialized = false;
+  let currentUserId = null;
+  let testRowId = null;
+  let probeReadOk = false;
+  let probeUnexpected = false;
+  let busy = false;
   const views = ['v3Config', 'v3Login', 'v3Success'];
+  const localDate = () => {
+    const d = new Date();
+    return [d.getFullYear(), String(d.getMonth() + 1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-');
+  };
+  function probeStatus(text, error=false) {
+    $('v3ProbeState').textContent = text;
+    $('v3ProbeState').classList.toggle('error', error);
+  }
+  function updateProbeButtons() {
+    $('v3ProbeRead').disabled = busy || !currentUserId;
+    $('v3ProbeWrite').disabled = busy || !currentUserId || !probeReadOk || probeUnexpected || !!testRowId;
+    $('v3ProbeDelete').disabled = busy || !currentUserId || !probeReadOk || probeUnexpected || !testRowId;
+    $('v3LogoutBtn').disabled = busy;
+  }
+  function setBusy(value) { busy = !!value; updateProbeButtons(); }
+  // RLS + user_id: la query non legge mai le righe di un altro utente.
+  async function readProbe() {
+    if (!client || !currentUserId) return;
+    const user = currentUserId;
+    setBusy(true);
+    probeReadOk = false;
+    probeUnexpected = false;
+    probeStatus('Controllo del movimento di prova sul database…');
+    try {
+      const { data, error } = await client.from('finance_transactions')
+        .select('id, transaction_date, kind, amount_cents, description')
+        .eq('user_id', user)
+        .eq('legacy_id', TEST_MARKER)
+        .limit(1);
+      if (error) throw error;
+      if (currentUserId !== user) return;
+      testRowId = data && data.length ? data[0].id : null;
+      probeReadOk = true;
+      if (testRowId) {
+        const row = data[0];
+        if (row.kind !== 'expense' || row.amount_cents !== 123 || row.description !== TEST_DESCRIPTION) {
+          probeUnexpected = true;
+          probeStatus('Trovato un record con l’identificativo di test ma dati inattesi. Non lo modificheremo.',true);
+        } else {
+          probeStatus('Movimento di prova trovato nel cloud: uscita di 1,23 € del '+row.transaction_date+'. Il salvataggio è persistente.');
+        }
+      } else {
+        probeStatus('Connessione riuscita: nessun movimento di prova presente nel cloud. Puoi crearne uno con il pulsante 2.');
+      }
+    } catch (err) {
+      testRowId = null;
+      probeReadOk = false;
+      probeStatus('Errore lettura Supabase: ' + (err.message || 'Rete non disponibile'), true);
+    } finally { setBusy(false); }
+  }
+  async function writeProbe() {
+    if (!client || !currentUserId || busy || testRowId) return;
+    const user = currentUserId;
+    setBusy(true);
+    probeStatus('Salvataggio del movimento dimostrativo in corso…');
+    try {
+      const {data, error} = await client.rpc('finance_save_transaction', {
+        p_id: null,
+        p_transaction_date: localDate(),
+        p_kind: 'expense',
+        p_amount_cents: 123,
+        p_description: TEST_DESCRIPTION,
+        p_allocations: [{category:'Altro',subcategory:'Test sincronizzazione',amount_cents:123,category_id:null}],
+        p_legacy_id: TEST_MARKER
+      });
+      if (error) throw error;
+      if (!data) throw new Error('Il server non ha restituito l’identificativo del movimento.');
+      if (currentUserId !== user) return;
+      probeStatus('Movimento salvato. Ora verifico che sia leggibile dal cloud…');
+    } catch (err) {
+      probeStatus('Salvataggio NON confermato: '+(err.message || 'Errore di rete')+'. Premi 1 per verificare se il dato è presente.',true);
+      return;
+    } finally { setBusy(false); }
+    await readProbe();
+  }
+  async function deleteProbe() {
+    if (!client || !currentUserId || !testRowId || busy) return;
+    if (!window.confirm('Eliminare SOLO il movimento dimostrativo da 1,23 € creato nel test?')) return;
+    const user=currentUserId, id=testRowId;
+    setBusy(true);
+    probeStatus('Eliminazione del movimento di prova in corso…');
+    try {
+      const {data,error} = await client.from('finance_transactions').delete()
+        .eq('id',id).eq('user_id',user).eq('legacy_id',TEST_MARKER).select('id');
+      if (error) throw error;
+      if (!data || data.length !== 1) throw new Error('Nessun movimento eliminato; verifica lo stato del database.');
+      if (currentUserId !== user) return;
+      testRowId=null;
+      probeStatus('Movimento di prova eliminato. Ora verifico che non sia più presente…');
+    } catch (err) {
+      probeStatus('Cancellazione non confermata: '+(err.message || 'Errore di rete'),true);
+      return;
+    } finally {setBusy(false);}
+    await readProbe();
+  }
   function show(view, heading, description) {
     views.forEach(id => $(id).classList.toggle('v3-hidden', id !== view));
     $('v3Title').textContent = heading;
@@ -147,12 +276,24 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
   function readyForConfig() {
     show('v3Config', 'Collega Supabase', 'Un solo passaggio per provare l’accesso al tuo account.');
   }
-  function signedIn(email) {
-    show('v3Success', 'Accesso riuscito', 'Hai effettuato l’accesso a Finanze v3.');
+  function signedIn(email, userId) {
+    currentUserId = userId;
+    testRowId = null;
+    probeReadOk = false;
+    probeUnexpected = false;
+    show('v3Success', 'Accesso riuscito', 'Ora verifichiamo la sincronizzazione dei movimenti.');
     $('v3UserEmail').textContent = email || 'Utente autenticato';
+    updateProbeButtons();
     message('La sessione è attiva.', true);
+    void readProbe();
   }
   function signedOut() {
+    currentUserId = null;
+    testRowId = null;
+    probeReadOk = false;
+    probeUnexpected = false;
+    busy = false;
+    updateProbeButtons();
     show('v3Login', 'Bentornato', 'Accedi con l’email e la password dell’utente creato in Supabase.');
   }
   async function init(key) {
@@ -170,7 +311,7 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
     try {
       const { data, error } = await client.auth.getUser();
       if (error && error.name !== 'AuthSessionMissingError') throw error;
-      if (data?.user) signedIn(data.user.email);
+      if (data?.user) signedIn(data.user.email, data.user.id);
       else signedOut();
     } catch (err) {
       signedOut();
@@ -212,12 +353,15 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
       $('v3Password').value = '';
       if (error) throw error;
       if (!data?.user) throw new Error('Nessun utente restituito dal server.');
-      signedIn(data.user.email);
+      signedIn(data.user.email, data.user.id);
     } catch (err) {
       $('v3Password').value = '';
       message('Accesso non riuscito: ' + (err.message || 'Errore di rete'));
     } finally { btn.disabled = false; }
   });
+  $('v3ProbeRead').addEventListener('click', readProbe);
+  $('v3ProbeWrite').addEventListener('click', writeProbe);
+  $('v3ProbeDelete').addEventListener('click', deleteProbe);
   $('v3LogoutBtn').addEventListener('click', async () => {
     if (!client) return;
     $('v3LogoutBtn').disabled = true;
