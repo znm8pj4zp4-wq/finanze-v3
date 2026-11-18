@@ -103,11 +103,14 @@ body { padding-bottom:100px; background:#f6f7fa; }
  </div>
 </section>
 
-<section id="workspace" hidden><main id="app" aria-live="polite"></main><nav class="nav" aria-label="Navigazione"><button class="navitem active" data-tab="home"><span class="navicon">◫</span>Riepilogo</button><button class="navitem" data-tab="transactions"><span class="navicon">⇄</span>Movimenti</button><button class="navitem" data-tab="wealth"><span class="navicon">▥</span>Patrimonio</button><button class="navitem" data-tab="settings"><span class="navicon">⚙</span>Dati</button></nav><button class="fab" aria-label="Aggiungi movimento" id="addFab">+</button>
+<section id="workspace" hidden><div id="savedStatus" role="status" aria-live="polite"></div><main id="app" aria-live="polite"></main><nav class="nav" aria-label="Navigazione"><button class="navitem active" data-tab="home"><span class="navicon">◫</span>Riepilogo</button><button class="navitem" data-tab="transactions"><span class="navicon">⇄</span>Movimenti</button><button class="navitem" data-tab="wealth"><span class="navicon">▥</span>Patrimonio</button><button class="navitem" data-tab="settings"><span class="navicon">⚙</span>Dati</button></nav><button class="fab" aria-label="Aggiungi movimento" id="addFab">+</button>
 <dialog id="txDialog"><div class="sheet"><div class="sheet-title"><h2 id="txDialogTitle">Nuovo movimento</h2><button class="close" data-close="txDialog" aria-label="Chiudi">×</button></div><form id="txForm"><input type="hidden" name="txid"><div class="segmented"><button type="button" class="segment active" data-type="expense">↗ Uscita</button><button type="button" class="segment" data-type="income">↙ Entrata</button></div><input type="hidden" name="type" value="expense"><label class="fieldlabel" for="txamount">Importo (€)</label><input id="txamount" class="field" name="amount" type="text" inputmode="decimal" placeholder="Es. 24,90" required maxlength="18"><div class="inlinefields"><div><label class="fieldlabel" for="txdate">Data</label><input id="txdate" class="field" name="date" type="date" required></div><div><label class="fieldlabel" for="txcategory">Categoria</label><select id="txcategory" class="field" name="category"></select></div></div><div id="splitArea"><label class="fieldlabel" for="txsubcategory">Sottocategoria</label><select id="txsubcategory" class="field" name="subcategory"></select><div style="margin-top:13px"><label style="font-size:13px"><input type="checkbox" id="splitToggle"> Suddividi questa spesa in più categorie</label></div><div id="splitRows" style="display:none;margin-top:12px"></div><button type="button" class="secondary" id="addSplit" style="display:none;margin-top:10px">+ Aggiungi quota</button><div id="splitBalance" class="subtext" style="margin-top:8px"></div></div><label class="fieldlabel" for="txnote">Descrizione (facoltativa)</label><input id="txnote" class="field" name="note" maxlength="140" placeholder="Es. supermercato, benzina…"><div class="actions"><button type="button" class="secondary" data-close="txDialog">Annulla</button><button class="primary" type="submit">Salva movimento</button></div><div class="actions" id="txDeleteBox" style="display:none"><button type="button" class="danger" id="txDelete">Elimina movimento</button></div></form></div></dialog>
 <dialog id="assetDialog"><div class="sheet"><div class="sheet-title"><h2 id="assetDialogTitle">Nuova voce patrimoniale</h2><button class="close" data-close="assetDialog" aria-label="Chiudi">×</button></div><form id="assetForm"><input type="hidden" name="assetid"><label class="fieldlabel" for="assetname">Nome</label><input class="field" id="assetname" name="name" maxlength="70" placeholder="Es. Conto deposito" required><label class="fieldlabel" for="assetvalue">Valore attuale (€)</label><input class="field" id="assetvalue" name="value" inputmode="decimal" placeholder="Es. 15000" required><label class="fieldlabel" for="assetkind">Tipo</label><select class="field" name="kind" id="assetkind"><option value="asset">Attività (possiedo)</option><option value="liability">Passività (devo)</option></select><p class="note">Aggiorna manualmente questi valori quando cambiano. I movimenti non modificano automaticamente il patrimonio, così evitiamo doppi conteggi.</p><div class="actions"><button type="button" class="secondary" data-close="assetDialog">Annulla</button><button class="primary" type="submit">Salva voce</button></div><div class="actions" id="assetDeleteBox" style="display:none"><button type="button" class="danger" id="assetDelete">Elimina voce</button></div></form></div></dialog>
 </section>
 <script src="./dashboard.js"></script>
+<script src="./backup.js"></script>
+<script src="./analysis.js"></script>
+<script src="./categories.js"></script>
 <script src="./movements.js"></script>
 <script src="./vendor/supabase.js"></script>
 <script>
@@ -152,6 +155,16 @@ body { padding-bottom:100px; background:#f6f7fa; }
       cursor = data[data.length-1][key];
     }
   }
+  async function readCategories(owner) {
+    const columns='id,kind,name,parent_id,sort_order,archived';
+    const load=()=>rows('finance_categories',columns,owner);
+    const current=await load();
+    if (current.length) return current;
+    const defaults=await defaultCategoryRows(owner);
+    const {error}=await client.from('finance_categories').upsert(defaults,{onConflict:'id',ignoreDuplicates:true});
+    if (error) throw error;
+    return load();
+  }
   async function signedIn(email, owner) {
     const sameAccount = owner === currentUserId;
     const previousView = sameAccount ? {tab,month,filter} : null;
@@ -161,22 +174,25 @@ body { padding-bottom:100px; background:#f6f7fa; }
     show('v3Success','Caricamento','Lettura dei tuoi dati da Supabase…');
     $('v3UserEmail').textContent = email;
     try {
-      const [tx, assets, settings] = await Promise.all([
-        rows('finance_transactions','id,updated_at,transaction_date,kind,amount_cents,description,finance_allocations(category_id,amount_cents,category_name_snapshot,subcategory_name_snapshot)',owner),
-        rows('finance_assets','id,updated_at,name,kind,value_cents',owner),
-        rows('finance_settings','user_id,monthly_budget_cents,theme,updated_at',owner,'user_id')
+      const [tx, assets, settings, catalog, imports] = await Promise.all([
+        rows('finance_transactions','id,legacy_id,account_label,updated_at,transaction_date,kind,amount_cents,description,finance_allocations(category_id,amount_cents,category_name_snapshot,subcategory_name_snapshot)',owner),
+        rows('finance_assets','id,legacy_id,updated_at,name,kind,value_cents',owner),
+        rows('finance_settings','user_id,monthly_budget_cents,theme,updated_at',owner,'user_id'),
+        readCategories(owner),
+        client.from('finance_imports').select('id').eq('user_id',owner).order('created_at',{ascending:false}).limit(1)
       ]);
       if (generation !== request) return;
+      if (imports.error) throw imports.error;
       const transactions = tx.map(t => {
         const splits = t.finance_allocations.map(a => ({category_id:a.category_id,category:a.category_name_snapshot || 'Altro',
           subcategory:a.subcategory_name_snapshot || '', amount:a.amount_cents/100}));
         if (t.finance_allocations.reduce((n,a)=>n+a.amount_cents,0)!==t.amount_cents)
           throw new Error('Le quote ricevute non coincidono con il totale del movimento.');
-        return {id:t.id,version:t.updated_at,type:t.kind,date:t.transaction_date,amount:t.amount_cents/100,
+        return {id:t.id,legacy_id:t.legacy_id,account:t.account_label,version:t.updated_at,type:t.kind,date:t.transaction_date,amount:t.amount_cents/100,
           note:t.description,category:splits[0]?.category,subcategory:splits[0]?.subcategory,splits};
       });
       state = {transactions, assets:assets.map(a=>({...a,value:a.value_cents/100})),
-        owner,settings:settings[0], budget:(settings[0]?.monthly_budget_cents || 0)/100};
+        owner,catalog,latestImport:imports.data[0]?.id,settings:settings[0], budget:(settings[0]?.monthly_budget_cents || 0)/100};
       if (previousView) ({tab,month,filter} = previousView);
       render();
       $('workspace').hidden = false;
@@ -283,6 +299,15 @@ body { padding-bottom:100px; background:#f6f7fa; }
     } finally { btn.disabled = false; }
   });
   $('reloadCloud').onclick = () => currentUserId && signedIn($('v3UserEmail').textContent,currentUserId);
+  window.refreshAfterSave = async () => {
+    const owner=currentUserId;
+    await signedIn($('v3UserEmail').textContent,owner);
+    if (state?.owner===owner) $('savedStatus').textContent='Modifica salvata nel cloud.';
+  };
+  document.addEventListener('visibilitychange',()=>{
+    if (document.visibilityState==='visible' && state && !saving && tab!=='settings' && !document.querySelector('dialog[open]'))
+      signedIn($('v3UserEmail').textContent,currentUserId);
+  });
   $('v3LogoutBtn').addEventListener('click', async () => {
     if (!client) return;
     lock();

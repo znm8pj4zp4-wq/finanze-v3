@@ -17,7 +17,10 @@ function exportCsv(){const lines=[['Data','Tipo','Categoria','Sottocategoria','I
 function clearDashboard() {
   document.querySelectorAll("dialog").forEach(d => { if (d.open) d.close(); d.querySelector("form")?.reset(); });
   document.documentElement.removeAttribute('data-theme');
+  $('#splitRows').replaceChildren();
+  $('#savedStatus').textContent='';
   state = null;
+  analysisRange=null;
   tab = 'home';
   filter = 'all';
   month = monthNow;
@@ -32,11 +35,13 @@ function render() {
   const dataPage = () => `${pageHeading('ACCOUNT','I tuoi dati')}<div class="card settingcard">
     <h3>Budget mensile</h3><form id="budgetForm"><label for="budget">Limite di spesa (€)</label><input class="field" id="budget" inputmode="decimal" value="${state.budget}"><button class="primary">Salva budget</button></form>
     <h3>Aspetto</h3><form id="themeForm"><label for="themeChoice">Tema</label><select class="field" id="themeChoice">${[['auto','Automatico'],['light','Chiaro'],['dark','Scuro']].map(([value,label])=>`<option value="${value}" ${value===(state.settings?.theme || 'auto')?'selected':''}>${label}</option>`).join('')}</select><button class="primary">Salva tema</button></form>
-    <h3>Esportazione</h3><p>Scarica i movimenti con le relative quote.</p>
+    </div>${categorySettings()}<div class="card settingcard"><h3>Esportazione</h3><p>Scarica i movimenti con le relative quote.</p>
     <button class="secondary" id="backup">Esporta backup JSON</button> <button class="secondary" id="csv">Esporta movimenti CSV</button>
-    <button class="secondary" id="refresh">Aggiorna dal cloud</button>
+    ${backupControls()}<button class="secondary" id="refresh">Aggiorna dal cloud</button>
     <button class="secondary" id="exit">Esci dall’account</button></div>`;
   $('#app').innerHTML = ({home, transactions, wealth, settings:dataPage})[tab]();
+  if (tab==='home') { $('#app').insertAdjacentHTML('beforeend',analysisPanel()); setupAnalysis(); }
+  if (tab==='settings') {setupCategorySettings(); setupBackup();}
   document.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
 }
 document.querySelector('#workspace').addEventListener('click', event => {
@@ -46,7 +51,7 @@ document.querySelector('#workspace').addEventListener('click', event => {
   if (button.dataset.tab) tab = button.dataset.tab;
   else if (button.dataset.filter) filter = button.dataset.filter;
   else if (button.dataset.month) return changeMonth(Number(button.dataset.month));
-  else if (button.id === 'backup') return download(JSON.stringify({version:2,exportedAt:new Date().toISOString(),budget:state.budget,transactions:state.transactions.map(({version,...t})=>({...t,account:'Non specificato'})),assets:state.assets.map(({id,kind,value,name})=>({id,kind,value,name}))},null,2),'backup-finanze-'+today()+'.json','application/json');
+  else if (button.id === 'backup') return download(JSON.stringify(backupDocument(),null,2),'backup-finanze-'+today()+'.json','application/json');
   else if (button.id === 'csv') return exportCsv();
   else if (button.id === 'exit') return $('#v3LogoutBtn').click();
   else if (button.id === 'refresh') return $('#reloadCloud').click();

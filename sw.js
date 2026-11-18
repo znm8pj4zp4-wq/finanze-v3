@@ -1,8 +1,9 @@
 'use strict';
 
-const cacheName = 'finanze-v3-shell-2';
+const prefix = 'finanze-v3-shell-' + new URL(self.registration.scope).pathname + '-';
+const cacheName = prefix + '4';
 const root = new URL('./', self.registration.scope);
-const files = ['index.html', 'dashboard.js', 'movements.js', 'vendor/supabase.js',
+const files = ['index.html', 'dashboard.js', 'movements.js', 'categories.js', 'analysis.js', 'backup.js', 'vendor/supabase.js',
   'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 const shell = new Set(files.map(path => new URL(path, root).href));
 
@@ -16,7 +17,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const names = await caches.keys();
-    await Promise.all(names.filter(n => n.startsWith('finanze-v3-shell-') && n !== cacheName)
+    await Promise.all(names.filter(n => n.startsWith(prefix) && n !== cacheName)
       .map(n => caches.delete(n)));
     await self.clients.claim();
   })());
