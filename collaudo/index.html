@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes">
+<meta name="theme-color" content="#f6f7fa"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Finanze">
+<meta name="description" content="Il tuo bilancio personale, con movimenti, grafici e patrimonio. Accesso su invito.">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png" type="image/png">
+<title>Finanze · Il mio bilancio</title>
+<style>
+:root{color-scheme:light;--ink:#142438;--muted:#758398;--sub:#9aa8b7;--bg:#f6f7fa;--surface:#fff;--line:#edf0f5;--navy:#102840;--teal:#19ad91;--red:#e46c76;--blue:#5985db;--shadow:0 7px 28px rgba(33,48,72,.045)}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}body{padding-bottom:calc(100px + env(safe-area-inset-bottom));}#app{max-width:720px;margin:0 auto;padding:28px 19px 12px}.topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:27px}.smallcaps{font-size:10px;letter-spacing:2.3px;font-weight:800;color:var(--teal)}h1{font-size:31px;letter-spacing:-1.1px;line-height:1.1;margin:7px 0 0;font-weight:800}.avatar{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:#e4f2ec;color:#15745f;font-weight:800;font-size:18px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 13px}.section-head h2{font-size:17px;letter-spacing:-.35px;margin:0}.pill-btn{border:1px solid #e6eaf0;background:#fff;color:#40516b;border-radius:13px;padding:9px 12px;font-size:12px;font-weight:700}.monthrow{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px}.month-name{font-size:13px;font-weight:750;text-transform:capitalize}.month-controls{display:flex;align-items:center;gap:7px}.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid #e6eaf0;border-radius:10px;background:#fff;color:#344b60;font-size:20px;line-height:1}.hero{background:linear-gradient(135deg,#142b44 4%,#0e3242 62%,#14545a 120%);border-radius:25px;color:#fff;padding:25px 24px 23px;box-shadow:0 15px 24px rgba(8,46,56,.11);overflow:hidden;position:relative}.hero:before{content:"";position:absolute;height:190px;width:190px;right:-79px;top:-95px;border:27px solid rgba(255,255,255,.045);border-radius:100%}.hero .eyebrow{font-size:12px;color:#a8c6ca;font-weight:600}.hero .main-num{font-size:39px;font-weight:800;letter-spacing:-1.2px;margin-top:9px;line-height:1.25}.hero .thin-line{height:1px;background:rgba(255,255,255,.14);margin:23px 0 20px}.hero-metrics{display:grid;grid-template-columns:1fr 1fr}.metric-label{font-size:11px;color:#c8d9dd;margin-bottom:9px}.metric-value{font-size:20px;letter-spacing:-.45px;font-weight:750}.hero-metrics > div:nth-child(2){padding-left:19px;border-left:1px solid rgba(255,255,255,.16)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}.green{background:#53d9b5}.pink{background:#ff9197}.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.stat{background:#fff;border-radius:19px;padding:18px;box-shadow:var(--shadow);min-height:107px}.stat .cap{color:var(--muted);font-size:11px;font-weight:600}.stat .num{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-top:10px;overflow-wrap:anywhere}.stat .hint{font-size:11px;color:var(--sub);margin-top:6px}.card{border-radius:20px;background:var(--surface);padding:19px;box-shadow:var(--shadow)}.budgetbar,.categorybar{width:100%;height:8px;background:#edf2f5;border-radius:10px;overflow:hidden}.budgetbar span,.categorybar span{display:block;height:100%;border-radius:inherit}.budgetbar span{background:var(--teal)}.between{display:flex;align-items:center;justify-content:space-between;gap:8px}.subtext{color:var(--muted);font-size:12px}.tiny{font-size:11px;color:#a0aab8}.budget-label{font-size:13px;font-weight:750}.budget-bottom{margin-top:13px}.trend{display:flex;align-items:flex-end;justify-content:space-around;gap:11px;height:125px;margin:9px 0 3px}.trend-month{flex:1;min-width:0;text-align:center}.trend-bars{height:102px;display:flex;align-items:flex-end;justify-content:center;gap:4px}.trend-bar{width:14px;max-width:40%;border-radius:6px 6px 2px 2px;min-height:3px}.trend-bar.income{background:#3abca4}.trend-bar.expense{background:#f2abb1}.trend-label{font-size:10px;color:#a0a9b6;margin-top:8px}.legend{display:flex;gap:16px;justify-content:center;margin-top:12px;font-size:11px;color:var(--muted)}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.categoryrow{margin:0 0 17px}.categoryrow:last-child{margin-bottom:0}.categoryrow .between{margin-bottom:9px}.catname{font-size:12px;font-weight:700}.catvalue{font-size:12px;font-weight:700}.empty{padding:29px 12px;color:var(--muted);font-size:13px;line-height:1.6;text-align:center}.empty .emoji{font-size:28px;margin-bottom:12px}.movement{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.movement:last-child{border-bottom:0}.symbol{width:41px;height:41px;display:grid;place-items:center;border-radius:13px;background:#eef6f3;font-size:18px;flex:none}.tx-main{min-width:0;flex:1}.tx-title{font-weight:730;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tx-meta{font-size:11px;color:var(--muted);margin-top:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.tx-amt{white-space:nowrap;font-size:13px;font-weight:800}.tx-amt.expense{color:#ca626c}.tx-amt.income{color:#139c81}.textbtn{border:0;color:#198d7d;background:none;font-size:12px;font-weight:700;padding:4px}.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-top:1px solid #e9edf1;padding:11px max(15px, env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;box-shadow:0 -6px 20px rgba(30,40,55,.035)}.navitem{border:0;background:transparent;min-width:69px;color:#9aa5b4;display:flex;align-items:center;gap:5px;flex-direction:column;font-size:10px;font-weight:700}.navitem .navicon{font-size:21px}.navitem.active{color:#168d7d}.fab{position:fixed;z-index:19;bottom:calc(84px + env(safe-area-inset-bottom));right:max(23px, calc((100vw - 720px) / 2 + 20px));height:58px;min-width:58px;border:0;background:#16a88f;color:#fff;border-radius:20px;font-size:29px;box-shadow:0 10px 25px rgba(22,168,143,.26)}.filterbar{display:flex;gap:7px;overflow-x:auto;padding:2px 0 9px;scrollbar-width:none}.filter{border:1px solid #e8ecf2;border-radius:13px;background:#fff;color:#637185;padding:9px 14px;font-size:12px;font-weight:700;white-space:nowrap}.filter.active{color:#fff;background:#18374c;border-color:#18374c}.asset-total{font-size:34px;font-weight:800;margin:9px 0 4px;letter-spacing:-1px}.assetitem{display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);padding:14px 0}.assetitem:last-child{border:0}.assetitem .assettype{color:var(--muted);font-size:11px;margin-top:4px}.assetval{font-weight:800;font-size:14px;margin-left:auto;white-space:nowrap}.cta{border:0;border-radius:13px;background:#e8f5f1;color:#0e7f6c;padding:11px 14px;font-size:12px;font-weight:750}.fieldlabel{display:block;font-weight:750;font-size:12px;color:#445369;margin:14px 0 7px}.field{background:#f6f8fa;border:1px solid #e8ecf2;border-radius:13px;padding:12px;width:100%;font-size:15px;color:#192e42;outline-color:#16a88f}.inlinefields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.primary{border:0;background:#17a78e;color:white;border-radius:14px;padding:14px 18px;font-weight:800;font-size:14px}.secondary{border:1px solid #e5e9ee;background:#fff;color:#32465a;border-radius:14px;padding:13px 17px;font-weight:750;font-size:13px}.danger{border:1px solid #ffdde0;color:#c95666;background:#fff1f3;border-radius:12px;padding:11px;font-weight:750;font-size:12px}.actions{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.actions > button{flex:1}dialog{border:0;border-radius:25px 25px 0 0;padding:0;margin:auto 0 0;width:100%;max-width:none;max-height:89dvh;background:#fff;box-shadow:0 -20px 70px #21364c20}dialog::backdrop{background:rgba(5,19,35,.4)}.sheet{max-width:620px;margin:auto;padding:25px 22px calc(25px + env(safe-area-inset-bottom));overflow-y:auto;max-height:89dvh}.sheet-title{display:flex;align-items:center;justify-content:space-between}.sheet-title h2{margin:0;font-size:22px;letter-spacing:-.7px}.close{width:31px;height:31px;border:0;border-radius:50%;background:#f0f3f6;font-size:20px;color:#6c788a}.segmented{display:flex;background:#eff2f5;border-radius:12px;padding:4px;gap:4px;margin-top:21px}.segment{flex:1;border:0;background:none;border-radius:9px;padding:10px;font-size:13px;font-weight:800;color:#8c98a6}.segment.active{background:#fff;color:#172e43;box-shadow:0 2px 9px #3442540d}.note{border-radius:13px;background:#eaf5f1;color:#46665b;font-size:12px;line-height:1.55;padding:12px;margin:14px 0}.settingcard{margin-bottom:12px}.settingcard h3{font-size:15px;margin:0 0 8px}.settingcard p{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 14px}.rows-btn{display:flex;gap:8px;flex-wrap:wrap}.rows-btn button{flex:1}.muted{color:var(--muted)}@media(min-width:760px){#app{padding-top:45px}.nav{left:calc((100vw - 720px)/2);right:calc((100vw - 720px)/2);border-radius:23px 23px 0 0}dialog{margin:auto;border-radius:26px;max-width:550px}.sheet{max-height:85dvh}}@media(max-width:375px){.hero .main-num{font-size:34px}.metric-value{font-size:18px}.navitem{min-width:58px}}
+
+/* Finanze v3, fase 1: schermata di autenticazione. La UI v2 è conservata ma inattiva. */
+[hidden] { display:none !important; }
+body { padding-bottom:100px; background:#f6f7fa; }
+.v3-wrap { min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:26px 17px; }
+.v3-panel { width:100%; max-width:430px; padding:30px 26px; border-radius:26px; background:#fff; box-shadow:0 14px 50px rgba(33,48,72,.09); }
+.v3-mark { width:53px; height:53px; border-radius:18px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg,#142b44,#148f82); font-size:26px; font-weight:800; margin-bottom:25px; }
+.v3-eyebrow { font-size:10px; letter-spacing:2px; font-weight:800; color:#159b84; }
+.v3-panel h1 { margin:9px 0 10px; font-size:29px; color:#152c42; }
+.v3-intro { font-size:13px; color:#687b8b; line-height:1.6; margin:0 0 22px; }
+.v3-label { display:block; margin:16px 0 7px; font-size:12px; font-weight:750; color:#45566a; }
+.v3-field { width:100%; padding:13px 14px; border:1px solid #e4ebf0; border-radius:13px; background:#f8fafb; outline-color:#19ad91; color:#17283a; font-size:15px; }
+.v3-submit { width:100%; margin-top:20px; padding:14px 16px; border:0; border-radius:13px; background:#18a88d; color:#fff; font-size:14px; font-weight:800; }
+.v3-submit:disabled { background:#94b9af; cursor:wait; }
+.v3-inline { border:0; background:transparent; color:#137d6c; text-decoration:underline; font-size:12px; font-weight:650; cursor:pointer; padding:8px 0; }
+.v3-message { min-height:24px; margin-top:16px; font-size:13px; line-height:1.5; color:#ad4754; overflow-wrap:anywhere; }
+.v3-message.ok { color:#13856f; }
+.v3-note { border-radius:12px; background:#edf7f3; color:#436a60; padding:12px; font-size:12px; line-height:1.6; margin-top:18px; }
+.v3-muted { color:#7b8795; font-size:11px; line-height:1.6; margin-top:21px; }
+.v3-user { border-radius:12px; background:#f4f7f9; padding:12px 14px; overflow-wrap:anywhere; font-size:13px; font-weight:750; color:#223448; }
+.v3-hidden { display:none !important; }
+@media (prefers-color-scheme:dark) { body { background:#101923; } .v3-panel { background:#1c2a38; } .v3-panel h1 { color:#f6f8fb; } .v3-intro,.v3-muted { color:#a2b0bd; } .v3-label { color:#c5d3dc; } .v3-field { background:#182431; color:#f4f8fa; border-color:#3a4a58; } .v3-user { background:#26394a; color:#eef4f6; } .v3-note { background:#193b38; color:#c8e6da; } }
+
+
+/* Finanze v3: test controllato di lettura/scrittura cloud */
+.v3-probe { margin:20px 0 4px; border:1px solid #d8e8e5; border-radius:16px; padding:17px; background:#f7faf9; }
+.v3-probe h2 {font-size:17px; margin:0 0 7px;color:#18364a}
+.v3-probe p {font-size:12px; line-height:1.55;color:#526a75; margin:0 0 12px}
+.v3-probe-status {border-radius:11px; background:#e7f5f0; color:#1a715f; padding:11px; margin:10px 0; font-size:12px; line-height:1.55; overflow-wrap:anywhere}
+.v3-probe-status.error {background:#fcecef;color:#aa4055}
+.v3-small-btn {display:block; width:100%; padding:12px; margin-top:10px; border-radius:12px; font-size:12px; font-weight:750; background:#fff; color:#1b5960; border:1px solid #cfdedc}
+.v3-small-btn.red {color:#a13c49;border-color:#edc6cb;background:#fff7f8}
+.v3-small-btn:disabled {opacity:.48; cursor:not-allowed}
+.v3-probe .v3-submit {margin-top:10px}
+@media (prefers-color-scheme:dark) {
+ .v3-probe{background:#1b303a;border-color:#395259}
+ .v3-probe h2{color:#e7f6f2}.v3-probe p{color:#b6c9cc}
+ .v3-probe-status{background:#204b41;color:#c2ead9}.v3-probe-status.error{background:#54303a;color:#ffd9e0}
+ .v3-small-btn{background:#263d47;color:#d9f1f1;border-color:#49616b}
+ .v3-small-btn.red{background:#4b303a;color:#ffe1e7;border-color:#895362}
+}
+
+:root[data-theme="dark"]{color-scheme:dark;--ink:#edf4f9;--muted:#b9c9d5;--sub:#abc0cd;--bg:#101b26;--surface:#1c2b38;--line:#394a57;
+ & body,& #app{background:var(--bg);color:var(--ink)}
+ & :is(.card,.stat,.nav,.sheet,dialog,.empty,.icon-btn,.month-controls,.field,.secondary,.filter,.segment,.settingcard,.assetitem,.movement){background:var(--surface)!important;color:var(--ink)!important;border-color:var(--line)!important}
+ & :is(.subtext,.hint,.tiny,.smallcaps,.cap,.tx-meta,.assettype,.note,.navitem,.empty,.fieldlabel,.settingcard p,.trend-label){color:var(--muted)!important}
+ & :is(h1,h2,h3,.month-name,.assetval,.num,.tx-title,.asset-total,.budget-label,.catname,.catvalue){color:var(--ink)}
+ & :is(.active,.textbtn){color:#51ddbd!important}
+}
+@media(prefers-color-scheme:dark){:root[data-theme="auto"]{color-scheme:dark;--ink:#edf4f9;--muted:#b9c9d5;--sub:#abc0cd;--bg:#101b26;--surface:#1c2b38;--line:#394a57;
+ & body,& #app{background:var(--bg);color:var(--ink)}
+ & :is(.card,.stat,.nav,.sheet,dialog,.empty,.icon-btn,.month-controls,.field,.secondary,.filter,.segment,.settingcard,.assetitem,.movement){background:var(--surface)!important;color:var(--ink)!important;border-color:var(--line)!important}
+ & :is(.subtext,.hint,.tiny,.smallcaps,.cap,.tx-meta,.assettype,.note,.navitem,.empty,.fieldlabel,.settingcard p,.trend-label){color:var(--muted)!important}
+ & :is(h1,h2,h3,.month-name,.assetval,.num,.tx-title,.asset-total,.budget-label,.catname,.catvalue){color:var(--ink)}
+ & :is(.active,.textbtn){color:#51ddbd!important}
+}}
+:root[data-theme="light"] body{background:var(--bg)}
+</style>
+</head>
+<body>
+
+<section class="v3-wrap" id="v3AuthRoot">
+ <div class="v3-panel">
+  <div class="v3-mark" aria-hidden="true">€</div>
+  <div class="v3-eyebrow">FINANZE V3 · ACCESSO</div>
+  <h1 id="v3Title">Benvenuto</h1>
+  <p class="v3-intro" id="v3Description">Accedi con l'account che hai creato in Supabase.</p>
+  <section id="v3SetPassword" class="v3-hidden">
+    <form id="choosePassword">
+      <label class="v3-label" for="newPassword">Nuova password</label>
+      <input class="v3-field" id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="v3-submit">Salva la password</button>
+    </form>
+  </section>
+  <section id="v3Login" class="v3-hidden">
+   <form id="v3LoginForm">
+    <label class="v3-label" for="v3Email">Email</label>
+    <input class="v3-field" id="v3Email" type="email" autocomplete="username" required placeholder="La tua email">
+    <label class="v3-label" for="v3Password">Password</label>
+    <input class="v3-field" id="v3Password" type="password" autocomplete="current-password" required placeholder="La password di Finanze v3">
+    <button type="submit" class="v3-submit" id="v3LoginBtn">Accedi</button>
+   </form>
+   <button type="button" id="forgotPassword" class="v3-inline">Ho dimenticato la password</button>
+  </section>
+  <section id="v3Success" class="v3-hidden">
+   <p class="v3-label">Account autenticato</p>
+   <div class="v3-user" id="v3UserEmail"></div>
+   <button type="button" id="reloadCloud" class="v3-small-btn">Aggiorna dal cloud</button>
+   <button type="button" class="v3-submit" id="v3LogoutBtn">Esci dall'account</button>
+  </section>
+  <div role="status" aria-live="polite" id="v3Status" class="v3-message"></div>
+
+ </div>
+</section>
+
+<section id="workspace" hidden><div id="savedStatus" role="status" aria-live="polite"></div><main id="app" aria-live="polite"></main><nav class="nav" aria-label="Navigazione"><button class="navitem active" data-tab="home"><span class="navicon">◫</span>Riepilogo</button><button class="navitem" data-tab="transactions"><span class="navicon">⇄</span>Movimenti</button><button class="navitem" data-tab="wealth"><span class="navicon">▥</span>Patrimonio</button><button class="navitem" data-tab="settings"><span class="navicon">⚙</span>Dati</button></nav><button class="fab" aria-label="Aggiungi movimento" id="addFab">+</button>
+<dialog id="txDialog"><div class="sheet"><div class="sheet-title"><h2 id="txDialogTitle">Nuovo movimento</h2><button class="close" data-close="txDialog" aria-label="Chiudi">×</button></div><form id="txForm"><input type="hidden" name="txid"><div class="segmented"><button type="button" class="segment active" data-type="expense">↗ Uscita</button><button type="button" class="segment" data-type="income">↙ Entrata</button></div><input type="hidden" name="type" value="expense"><label class="fieldlabel" for="txamount">Importo (€)</label><input id="txamount" class="field" name="amount" type="text" inputmode="decimal" placeholder="Es. 24,90" required maxlength="18"><div class="inlinefields"><div><label class="fieldlabel" for="txdate">Data</label><input id="txdate" class="field" name="date" type="date" required></div><div><label class="fieldlabel" for="txcategory">Categoria</label><select id="txcategory" class="field" name="category"></select></div></div><div id="splitArea"><label class="fieldlabel" for="txsubcategory">Sottocategoria</label><select id="txsubcategory" class="field" name="subcategory"></select><div style="margin-top:13px"><label style="font-size:13px"><input type="checkbox" id="splitToggle"> Suddividi questa spesa in più categorie</label></div><div id="splitRows" style="display:none;margin-top:12px"></div><button type="button" class="secondary" id="addSplit" style="display:none;margin-top:10px">+ Aggiungi quota</button><div id="splitBalance" class="subtext" style="margin-top:8px"></div></div><label class="fieldlabel" for="txnote">Descrizione (facoltativa)</label><input id="txnote" class="field" name="note" maxlength="140" placeholder="Es. supermercato, benzina…"><div class="actions"><button type="button" class="secondary" data-close="txDialog">Annulla</button><button class="primary" type="submit">Salva movimento</button></div><div class="actions" id="txDeleteBox" style="display:none"><button type="button" class="danger" id="txDelete">Elimina movimento</button></div></form></div></dialog>
+<dialog id="assetDialog"><div class="sheet"><div class="sheet-title"><h2 id="assetDialogTitle">Nuova voce patrimoniale</h2><button class="close" data-close="assetDialog" aria-label="Chiudi">×</button></div><form id="assetForm"><input type="hidden" name="assetid"><label class="fieldlabel" for="assetname">Nome</label><input class="field" id="assetname" name="name" maxlength="70" placeholder="Es. Conto deposito" required><label class="fieldlabel" for="assetvalue">Valore attuale (€)</label><input class="field" id="assetvalue" name="value" inputmode="decimal" placeholder="Es. 15000" required><label class="fieldlabel" for="assetkind">Tipo</label><select class="field" name="kind" id="assetkind"><option value="asset">Attività (possiedo)</option><option value="liability">Passività (devo)</option></select><p class="note">Aggiorna manualmente questi valori quando cambiano. I movimenti non modificano automaticamente il patrimonio, così evitiamo doppi conteggi.</p><div class="actions"><button type="button" class="secondary" data-close="assetDialog">Annulla</button><button class="primary" type="submit">Salva voce</button></div><div class="actions" id="assetDeleteBox" style="display:none"><button type="button" class="danger" id="assetDelete">Elimina voce</button></div></form></div></dialog>
+</section>
+<script src="./dashboard.js"></script>
+<script src="./backup.js"></script>
+<script src="./analysis.js"></script>
+<script src="./categories.js"></script>
+<script src="./movements.js"></script>
+<script src="./vendor/supabase.js"></script>
+<script>
+(() => {
+  'use strict';
+  const SUPABASE_URL = 'https://jifxymefooljkaldzpxh.supabase.co';
+  const PUBLIC_KEY = 'sb_publishable_MNSOPbYH_sClTUointmV8w_RUqvWBwF';
+  const incoming = new URLSearchParams(location.hash.slice(1));
+  let setPassword = ['invite','recovery'].includes(incoming.get('type')) && incoming.has('access_token');
+  const $ = id => document.getElementById(id);
+  let client = null;
+  let initialized = false;
+  let currentUserId = null;
+  let generation = 0;
+  const views = ['v3SetPassword','v3Login','v3Success'];
+  function show(view, heading, description) {
+    views.forEach(id => $(id).classList.toggle('v3-hidden', id !== view));
+    $('v3Title').textContent = heading;
+    $('v3Description').textContent = description;
+    $('v3Status').textContent = '';
+    $('v3Status').classList.remove('ok');
+  }
+  function message(text, ok = false) {
+    $('v3Status').textContent = text;
+    $('v3Status').classList.toggle('ok', ok);
+  }
+  function lock() {
+    generation++;
+    clearDashboard();
+    $('v3AuthRoot').hidden = false;
+  }
+  async function rows(table, columns, owner, key = 'id') {
+    const result = [];
+    let cursor;
+    for (;;) {
+      let query = client.from(table).select(columns).eq('user_id',owner).order(key).limit(500);
+      if (cursor) query = query.gt(key,cursor);
+      const {data,error} = await query;
+      if (error) throw error;
+      if (!data.length) return result;
+      result.push(...data);
+      cursor = data[data.length-1][key];
+    }
+  }
+  async function readCategories(owner) {
+    const columns='id,kind,name,parent_id,sort_order,archived';
+    const load=()=>rows('finance_categories',columns,owner);
+    const current=await load();
+    if (current.length) return current;
+    const defaults=await defaultCategoryRows(owner);
+    const {error}=await client.from('finance_categories').upsert(defaults,{onConflict:'id',ignoreDuplicates:true});
+    if (error) throw error;
+    return load();
+  }
+  async function signedIn(email, owner) {
+    const sameAccount = owner === currentUserId;
+    const previousView = sameAccount ? {tab,month,filter} : null;
+    lock();
+    currentUserId = owner;
+    const request = generation;
+    show('v3Success','Caricamento','Lettura dei tuoi dati da Supabase…');
+    $('v3UserEmail').textContent = email;
+    try {
+      const [tx, assets, settings, catalog, imports] = await Promise.all([
+        rows('finance_transactions','id,legacy_id,account_label,updated_at,transaction_date,kind,amount_cents,description,finance_allocations(category_id,amount_cents,category_name_snapshot,subcategory_name_snapshot)',owner),
+        rows('finance_assets','id,legacy_id,updated_at,name,kind,value_cents',owner),
+        rows('finance_settings','user_id,monthly_budget_cents,theme,updated_at',owner,'user_id'),
+        readCategories(owner),
+        client.from('finance_imports').select('id').eq('user_id',owner).order('created_at',{ascending:false}).limit(1)
+      ]);
+      if (generation !== request) return;
+      if (imports.error) throw imports.error;
+      const transactions = tx.map(t => {
+        const splits = t.finance_allocations.map(a => ({category_id:a.category_id,category:a.category_name_snapshot || 'Altro',
+          subcategory:a.subcategory_name_snapshot || '', amount:a.amount_cents/100}));
+        if (t.finance_allocations.reduce((n,a)=>n+a.amount_cents,0)!==t.amount_cents)
+          throw new Error('Le quote ricevute non coincidono con il totale del movimento.');
+        return {id:t.id,legacy_id:t.legacy_id,account:t.account_label,version:t.updated_at,type:t.kind,date:t.transaction_date,amount:t.amount_cents/100,
+          note:t.description,category:splits[0]?.category,subcategory:splits[0]?.subcategory,splits};
+      });
+      state = {transactions, assets:assets.map(a=>({...a,value:a.value_cents/100})),
+        owner,catalog,latestImport:imports.data[0]?.id,settings:settings[0], budget:(settings[0]?.monthly_budget_cents || 0)/100};
+      if (previousView) ({tab,month,filter} = previousView);
+      render();
+      $('workspace').hidden = false;
+      $('v3AuthRoot').hidden = true;
+    } catch (error) {
+      if (generation !== request) return;
+      clearDashboard();
+      show('v3Success','Dati non disponibili','Puoi riprovare la lettura o uscire dall’account.');
+      message(error.message);
+    }
+  }
+  function signedOut() {
+    lock();
+    currentUserId = null;
+    $('v3UserEmail').textContent = '';
+    show('v3Login','Bentornato','Accedi con il tuo account Finanze.');
+  }
+  async function persist(change) {
+    const owner = currentUserId;
+    const request = generation;
+    const {data:identity,error:authError} = await client.auth.getUser();
+    if (authError || !owner || identity?.user?.id !== owner || request !== generation)
+      throw Error('Sessione cambiata. Riapri la schermata.');
+    const {data,error} = await change(client,owner);
+    if (error) throw error;
+    if (!data) throw Error('Dato già modificato o eliminato. Aggiorna dal cloud.');
+    if (request !== generation) throw Error('Sessione cambiata.');
+  }
+  window.financeWrite = persist;
+  async function init(key) {
+    if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+      signedOut();
+      message('Impossibile caricare la libreria Supabase. Verifica la connessione Internet e ricarica la pagina.');
+      return;
+    }
+    client = window.supabase.createClient(SUPABASE_URL, key, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'finanze_v3_test_auth_session' }
+    });
+    client.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') { setPassword = false; signedOut(); }
+      if (event === 'PASSWORD_RECOVERY') {
+        setPassword = true;
+        lock();
+        show('v3SetPassword','Scegli la tua password','Usa almeno otto caratteri.');
+      }
+      if (event === 'SIGNED_IN' && currentUserId && currentUserId !== session?.user?.id) location.reload();
+    });
+    initialized = true;
+    signedOut();
+    message('Verifica della sessione in corso…');
+    try {
+      const { data, error } = await client.auth.getUser();
+      if (error && error.name !== 'AuthSessionMissingError') throw error;
+      if (data?.user && setPassword) show('v3SetPassword','Scegli la tua password','Usa almeno otto caratteri.');
+      else if (data?.user) signedIn(data.user.email, data.user.id);
+      else signedOut();
+    } catch (err) {
+      signedOut();
+      message('Controllo sessione non riuscito: ' + (err.message || 'Errore di rete'));
+    }
+  }
+  $('choosePassword').onsubmit = async event => {
+    event.preventDefault();
+    const btn = event.target.querySelector('button');
+    btn.disabled = true;
+    try {
+      const {data,error} = await client.auth.updateUser({password:$('newPassword').value});
+      if (error) throw error;
+      $('newPassword').value = '';
+      setPassword = false;
+      await signedIn(data.user.email,data.user.id);
+    } catch (error) { message(error.message); }
+    finally { btn.disabled = false; }
+  };
+  $('forgotPassword').onclick = async () => {
+    const email = $('v3Email');
+    if (!email.reportValidity()) return;
+    const btn = $('forgotPassword');
+    btn.disabled = true;
+    try {
+      const {error} = await client.auth.resetPasswordForEmail(email.value.trim(),{redirectTo:new URL('./',location.href).href});
+      if (error) throw error;
+      message('Se l’indirizzo è registrato, riceverai un’email per scegliere una nuova password.',true);
+    } catch (error) { message(error.message); }
+    finally { btn.disabled = false; }
+  };
+  $('v3LoginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!client || !initialized) return;
+    const btn = $('v3LoginBtn');
+    btn.disabled = true;
+    message('Accesso in corso…', true);
+    try {
+      const email = $('v3Email').value.trim();
+      const password = $('v3Password').value;
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      $('v3Password').value = '';
+      if (error) throw error;
+      if (!data?.user) throw new Error('Nessun utente restituito dal server.');
+      signedIn(data.user.email, data.user.id);
+    } catch (err) {
+      $('v3Password').value = '';
+      message('Accesso non riuscito: ' + (err.message || 'Errore di rete'));
+    } finally { btn.disabled = false; }
+  });
+  $('reloadCloud').onclick = () => currentUserId && signedIn($('v3UserEmail').textContent,currentUserId);
+  window.refreshAfterSave = async () => {
+    const owner=currentUserId;
+    await signedIn($('v3UserEmail').textContent,owner);
+    if (state?.owner===owner) $('savedStatus').textContent='Modifica salvata nel cloud.';
+  };
+  document.addEventListener('visibilitychange',()=>{
+    if (document.visibilityState==='visible' && state && !saving && tab!=='settings' && !document.querySelector('dialog[open]'))
+      signedIn($('v3UserEmail').textContent,currentUserId);
+  });
+  $('v3LogoutBtn').addEventListener('click', async () => {
+    if (!client) return;
+    lock();
+    $('v3LogoutBtn').disabled = true;
+    message('Uscita in corso…', true);
+    try {
+      const { error } = await client.auth.signOut();
+      if (error) throw error;
+      signedOut();
+      message('Sei uscito correttamente.', true);
+    } catch (err) { message('Impossibile uscire: ' + (err.message || 'Errore di rete')); }
+    finally { $('v3LogoutBtn').disabled = false; }
+  });
+  init(PUBLIC_KEY);
+  // Aggiorna il service worker già presente nella sola sottocartella /finanze-v3/.
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js', { updateViaCache:'none' }).catch(() => {}));
+  }
+})();
+</script>
+
+</body></html>
