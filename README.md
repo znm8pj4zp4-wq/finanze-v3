@@ -1,32 +1,28 @@
-# Le mie finanze — Web app per iPhone
+# Finanze v3
 
-Questo pacchetto contiene una piccola app per registrare manualmente entrate e spese e tenere una fotografia del patrimonio.
+Web app personale per iPhone e Mac. Ogni persona accede con il proprio account Supabase. L’amministratore può invitarla via email da **Authentication → Users → Add user → Send invitation**.
 
-## Come metterla su iPhone (senza sviluppare in Swift)
+## Uso
 
-1. Crea un account GitHub (se non lo hai) e un repository pubblico con un nome come `finanze-iphone`.
-2. Carica nella cartella principale del repository **tutti i file estratti da questo ZIP** (non caricare solo lo ZIP).
-3. Vai nel repository > Settings > Pages > Build and deployment: `Deploy from a branch`, branch `main`, cartella `/(root)` > Save.
-4. Quando la pubblicazione è pronta, apri da Safari iPhone l'indirizzo `https://TUO-UTENTE.github.io/finanze-iphone/`.
-5. In Safari usa Condividi > Aggiungi alla schermata Home > **Apri come app web** > Aggiungi.
-6. **Solo a questo punto** inserisci i dati veri: Safari e app installata possono avere memorie distinte.
+- In **Riepilogo** puoi cambiare mese e consultare entrate, uscite e ripartizioni.
+- In **Movimenti** premi **+** per registrare un’entrata o una spesa. Per dividere una spesa attiva la ripartizione e indica l’importo di ogni quota. Tocca un movimento per modificarlo.
+- In **Patrimonio** inserisci e aggiorna manualmente attività e passività.
+- In **Dati** puoi impostare budget e tema, aggiornare la lettura dal cloud ed esportare i dati in JSON o i movimenti in CSV.
 
-## Come funziona
+Serve una connessione per accedere, caricare i dati e confermare le modifiche. Il service worker conserva i file dell’interfaccia. I dati finanziari caricati restano nella memoria della pagina durante la sessione.
 
-- In **Riepilogo** visualizzi i totali del mese, il tasso di risparmio, il budget, il trend di 6 mesi e le categorie.
-- Il pulsante verde **+** aggiunge entrate e uscite. Tocca un movimento per modificarlo o eliminarlo.
-- In **Patrimonio** inserisci manualmente liquidità, depositi, investimenti e debiti. Il patrimonio non viene modificato automaticamente dai movimenti.
-- In **Dati** trovi budget mensile, backup JSON, import e CSV per Excel o Numbers.
-- In **Dati > Aggiungi esempi** puoi provare il funzionamento con operazioni dimostrative.
+## Sviluppo
 
-## Privacy e attenzione
+Il sito è statico e usa percorsi relativi compatibili con GitHub Pages. La configurazione pubblica del progetto è inclusa. La libreria client Supabase JS 2.119.0 è distribuita in `vendor/` con la sua licenza.
 
-Questa app **non ha un server di salvataggio** e non richiede un account bancario. I dati vengono memorizzati tramite `localStorage` del browser/app sul dispositivo. Il repository GitHub pubblico contiene solo **il codice**, non i movimenti che inserisci nell'app. Non caricare mai lì il tuo file di backup.
+`database/transaction-version.sql` aggiunge il controllo della versione del movimento alla funzione di salvataggio già installata nel progetto. Il ramo di sviluppo conserva questa migrazione per rendere riproducibile la modifica.
 
-I dati **non vengono sincronizzati automaticamente** tra iPhone e altri dispositivi. Un cambio telefono, l'eliminazione dell'app o la pulizia dei dati dei siti può farli sparire. **Esporta regolarmente il backup JSON e salvalo su iCloud Drive**; verifica occasionalmente di saperlo importare.
+## Categorie, analisi e backup
 
-Se la pagina è già stata aperta in Safari prima di aggiungerla alla Home, esporta da Safari un backup prima dell'installazione: le memorie potrebbero essere distinte.
+In **Dati → Categorie e sottocategorie** scegli il tipo di movimento e il gruppo. Puoi cambiare nome e posizione oppure archiviare una voce. Le quote registrate mantengono il nome storico. In **Riepilogo → Analisi per periodo** puoi confrontare mese, anno o date personalizzate e toccare una categoria per aprire i movimenti associati.
 
-Non introdurre PIN, password, IBAN completi o numeri di carte. Non si tratta di un software bancario certificato; i totali dipendono dalle registrazioni manuali. Per rendere i dati sincronizzati e più protetti occorrerà un backend autenticato, con cifratura e backup.
+In **Dati** scegli il JSON della v2 e verifica il numero di movimenti, i totali e il budget nell’anteprima. La conferma scarica una copia dei dati correnti e avvia una singola operazione sul database. Un secondo invio dello stesso contenuto restituisce la ricevuta precedente. Sovrapposizioni parziali o budget incompatibili interrompono l’operazione. Per rimuovere il caricamento più recente usa **Annulla l’ultima importazione**. Se le voci sono state modificate, l’app interrompe l’annullamento. Conserva il file della v2. Il JSON compatibile con la v2 comprende movimenti, quote, patrimonio e budget. Le preferenze grafiche e le categorie prive di movimenti restano nelle impostazioni cloud.
 
-Una volta installata e caricata almeno una volta con internet, il service worker può consentire l'apertura offline. Per aggiornare il codice, sostituisci i file del repository e aumenta la versione `CACHE` in `sw.js`.
+## Ripristino della versione pubblicata
+
+Per ripristinare il sito, crea su GitHub un revert del commit di pubblicazione e attendi la conclusione del deployment Pages. Riapri la PWA con rete disponibile. Una regressione dell’interfaccia richiede il ripristino dei file statici. Le migrazioni SQL aggiuntive possono restare installate. Per un errore di importazione usa la ricevuta personale descritta sopra. Evita di ripristinare globalmente il database per annullare l’operazione di una sola persona.
