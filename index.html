@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes">
 <meta name="theme-color" content="#f6f7fa"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Finanze">
-<meta name="description" content="Il tuo bilancio personale, con movimenti, grafici e patrimonio. Versione di prova della sincronizzazione con Supabase.">
+<meta name="description" content="Il tuo bilancio personale, con movimenti, grafici e patrimonio. Accesso su invito.">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png" type="image/png">
 <title>Finanze · Il mio bilancio</title>
 <style>
 :root{color-scheme:light;--ink:#142438;--muted:#758398;--sub:#9aa8b7;--bg:#f6f7fa;--surface:#fff;--line:#edf0f5;--navy:#102840;--teal:#19ad91;--red:#e46c76;--blue:#5985db;--shadow:0 7px 28px rgba(33,48,72,.045)}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}body{padding-bottom:calc(100px + env(safe-area-inset-bottom));}#app{max-width:720px;margin:0 auto;padding:28px 19px 12px}.topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:27px}.smallcaps{font-size:10px;letter-spacing:2.3px;font-weight:800;color:var(--teal)}h1{font-size:31px;letter-spacing:-1.1px;line-height:1.1;margin:7px 0 0;font-weight:800}.avatar{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:#e4f2ec;color:#15745f;font-weight:800;font-size:18px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 13px}.section-head h2{font-size:17px;letter-spacing:-.35px;margin:0}.pill-btn{border:1px solid #e6eaf0;background:#fff;color:#40516b;border-radius:13px;padding:9px 12px;font-size:12px;font-weight:700}.monthrow{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px}.month-name{font-size:13px;font-weight:750;text-transform:capitalize}.month-controls{display:flex;align-items:center;gap:7px}.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid #e6eaf0;border-radius:10px;background:#fff;color:#344b60;font-size:20px;line-height:1}.hero{background:linear-gradient(135deg,#142b44 4%,#0e3242 62%,#14545a 120%);border-radius:25px;color:#fff;padding:25px 24px 23px;box-shadow:0 15px 24px rgba(8,46,56,.11);overflow:hidden;position:relative}.hero:before{content:"";position:absolute;height:190px;width:190px;right:-79px;top:-95px;border:27px solid rgba(255,255,255,.045);border-radius:100%}.hero .eyebrow{font-size:12px;color:#a8c6ca;font-weight:600}.hero .main-num{font-size:39px;font-weight:800;letter-spacing:-1.2px;margin-top:9px;line-height:1.25}.hero .thin-line{height:1px;background:rgba(255,255,255,.14);margin:23px 0 20px}.hero-metrics{display:grid;grid-template-columns:1fr 1fr}.metric-label{font-size:11px;color:#c8d9dd;margin-bottom:9px}.metric-value{font-size:20px;letter-spacing:-.45px;font-weight:750}.hero-metrics > div:nth-child(2){padding-left:19px;border-left:1px solid rgba(255,255,255,.16)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}.green{background:#53d9b5}.pink{background:#ff9197}.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.stat{background:#fff;border-radius:19px;padding:18px;box-shadow:var(--shadow);min-height:107px}.stat .cap{color:var(--muted);font-size:11px;font-weight:600}.stat .num{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-top:10px;overflow-wrap:anywhere}.stat .hint{font-size:11px;color:var(--sub);margin-top:6px}.card{border-radius:20px;background:var(--surface);padding:19px;box-shadow:var(--shadow)}.budgetbar,.categorybar{width:100%;height:8px;background:#edf2f5;border-radius:10px;overflow:hidden}.budgetbar span,.categorybar span{display:block;height:100%;border-radius:inherit}.budgetbar span{background:var(--teal)}.between{display:flex;align-items:center;justify-content:space-between;gap:8px}.subtext{color:var(--muted);font-size:12px}.tiny{font-size:11px;color:#a0aab8}.budget-label{font-size:13px;font-weight:750}.budget-bottom{margin-top:13px}.trend{display:flex;align-items:flex-end;justify-content:space-around;gap:11px;height:125px;margin:9px 0 3px}.trend-month{flex:1;min-width:0;text-align:center}.trend-bars{height:102px;display:flex;align-items:flex-end;justify-content:center;gap:4px}.trend-bar{width:14px;max-width:40%;border-radius:6px 6px 2px 2px;min-height:3px}.trend-bar.income{background:#3abca4}.trend-bar.expense{background:#f2abb1}.trend-label{font-size:10px;color:#a0a9b6;margin-top:8px}.legend{display:flex;gap:16px;justify-content:center;margin-top:12px;font-size:11px;color:var(--muted)}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.categoryrow{margin:0 0 17px}.categoryrow:last-child{margin-bottom:0}.categoryrow .between{margin-bottom:9px}.catname{font-size:12px;font-weight:700}.catvalue{font-size:12px;font-weight:700}.empty{padding:29px 12px;color:var(--muted);font-size:13px;line-height:1.6;text-align:center}.empty .emoji{font-size:28px;margin-bottom:12px}.movement{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.movement:last-child{border-bottom:0}.symbol{width:41px;height:41px;display:grid;place-items:center;border-radius:13px;background:#eef6f3;font-size:18px;flex:none}.tx-main{min-width:0;flex:1}.tx-title{font-weight:730;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tx-meta{font-size:11px;color:var(--muted);margin-top:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.tx-amt{white-space:nowrap;font-size:13px;font-weight:800}.tx-amt.expense{color:#ca626c}.tx-amt.income{color:#139c81}.textbtn{border:0;color:#198d7d;background:none;font-size:12px;font-weight:700;padding:4px}.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-top:1px solid #e9edf1;padding:11px max(15px, env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;box-shadow:0 -6px 20px rgba(30,40,55,.035)}.navitem{border:0;background:transparent;min-width:69px;color:#9aa5b4;display:flex;align-items:center;gap:5px;flex-direction:column;font-size:10px;font-weight:700}.navitem .navicon{font-size:21px}.navitem.active{color:#168d7d}.fab{position:fixed;z-index:19;bottom:calc(84px + env(safe-area-inset-bottom));right:max(23px, calc((100vw - 720px) / 2 + 20px));height:58px;min-width:58px;border:0;background:#16a88f;color:#fff;border-radius:20px;font-size:29px;box-shadow:0 10px 25px rgba(22,168,143,.26)}.filterbar{display:flex;gap:7px;overflow-x:auto;padding:2px 0 9px;scrollbar-width:none}.filter{border:1px solid #e8ecf2;border-radius:13px;background:#fff;color:#637185;padding:9px 14px;font-size:12px;font-weight:700;white-space:nowrap}.filter.active{color:#fff;background:#18374c;border-color:#18374c}.asset-total{font-size:34px;font-weight:800;margin:9px 0 4px;letter-spacing:-1px}.assetitem{display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);padding:14px 0}.assetitem:last-child{border:0}.assetitem .assettype{color:var(--muted);font-size:11px;margin-top:4px}.assetval{font-weight:800;font-size:14px;margin-left:auto;white-space:nowrap}.cta{border:0;border-radius:13px;background:#e8f5f1;color:#0e7f6c;padding:11px 14px;font-size:12px;font-weight:750}.fieldlabel{display:block;font-weight:750;font-size:12px;color:#445369;margin:14px 0 7px}.field{background:#f6f8fa;border:1px solid #e8ecf2;border-radius:13px;padding:12px;width:100%;font-size:15px;color:#192e42;outline-color:#16a88f}.inlinefields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.primary{border:0;background:#17a78e;color:white;border-radius:14px;padding:14px 18px;font-weight:800;font-size:14px}.secondary{border:1px solid #e5e9ee;background:#fff;color:#32465a;border-radius:14px;padding:13px 17px;font-weight:750;font-size:13px}.danger{border:1px solid #ffdde0;color:#c95666;background:#fff1f3;border-radius:12px;padding:11px;font-weight:750;font-size:12px}.actions{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.actions > button{flex:1}dialog{border:0;border-radius:25px 25px 0 0;padding:0;margin:auto 0 0;width:100%;max-width:none;max-height:89dvh;background:#fff;box-shadow:0 -20px 70px #21364c20}dialog::backdrop{background:rgba(5,19,35,.4)}.sheet{max-width:620px;margin:auto;padding:25px 22px calc(25px + env(safe-area-inset-bottom));overflow-y:auto;max-height:89dvh}.sheet-title{display:flex;align-items:center;justify-content:space-between}.sheet-title h2{margin:0;font-size:22px;letter-spacing:-.7px}.close{width:31px;height:31px;border:0;border-radius:50%;background:#f0f3f6;font-size:20px;color:#6c788a}.segmented{display:flex;background:#eff2f5;border-radius:12px;padding:4px;gap:4px;margin-top:21px}.segment{flex:1;border:0;background:none;border-radius:9px;padding:10px;font-size:13px;font-weight:800;color:#8c98a6}.segment.active{background:#fff;color:#172e43;box-shadow:0 2px 9px #3442540d}.note{border-radius:13px;background:#eaf5f1;color:#46665b;font-size:12px;line-height:1.55;padding:12px;margin:14px 0}.settingcard{margin-bottom:12px}.settingcard h3{font-size:15px;margin:0 0 8px}.settingcard p{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 14px}.rows-btn{display:flex;gap:8px;flex-wrap:wrap}.rows-btn button{flex:1}.muted{color:var(--muted)}@media(min-width:760px){#app{padding-top:45px}.nav{left:calc((100vw - 720px)/2);right:calc((100vw - 720px)/2);border-radius:23px 23px 0 0}dialog{margin:auto;border-radius:26px;max-width:550px}.sheet{max-height:85dvh}}@media(max-width:375px){.hero .main-num{font-size:34px}.metric-value{font-size:18px}.navitem{min-width:58px}}
 
 /* Finanze v3, fase 1: schermata di autenticazione. La UI v2 è conservata ma inattiva. */
-#app, #addFab, .nav, #txDialog, #assetDialog, #importFile { display:none !important; }
-body { padding-bottom:20px; background:#f6f7fa; }
+[hidden] { display:none !important; }
+body { padding-bottom:100px; background:#f6f7fa; }
 .v3-wrap { min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:26px 17px; }
 .v3-panel { width:100%; max-width:430px; padding:30px 26px; border-radius:26px; background:#fff; box-shadow:0 14px 50px rgba(33,48,72,.09); }
 .v3-mark { width:53px; height:53px; border-radius:18px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg,#142b44,#148f82); font-size:26px; font-weight:800; margin-bottom:25px; }
@@ -50,6 +50,21 @@ body { padding-bottom:20px; background:#f6f7fa; }
  .v3-small-btn.red{background:#4b303a;color:#ffe1e7;border-color:#895362}
 }
 
+:root[data-theme="dark"]{color-scheme:dark;--ink:#edf4f9;--muted:#b9c9d5;--sub:#abc0cd;--bg:#101b26;--surface:#1c2b38;--line:#394a57;
+ & body,& #app{background:var(--bg);color:var(--ink)}
+ & :is(.card,.stat,.nav,.sheet,dialog,.empty,.icon-btn,.month-controls,.field,.secondary,.filter,.segment,.settingcard,.assetitem,.movement){background:var(--surface)!important;color:var(--ink)!important;border-color:var(--line)!important}
+ & :is(.subtext,.hint,.tiny,.smallcaps,.cap,.tx-meta,.assettype,.note,.navitem,.empty,.fieldlabel,.settingcard p,.trend-label){color:var(--muted)!important}
+ & :is(h1,h2,h3,.month-name,.assetval,.num,.tx-title,.asset-total,.budget-label,.catname,.catvalue){color:var(--ink)}
+ & :is(.active,.textbtn){color:#51ddbd!important}
+}
+@media(prefers-color-scheme:dark){:root[data-theme="auto"]{color-scheme:dark;--ink:#edf4f9;--muted:#b9c9d5;--sub:#abc0cd;--bg:#101b26;--surface:#1c2b38;--line:#394a57;
+ & body,& #app{background:var(--bg);color:var(--ink)}
+ & :is(.card,.stat,.nav,.sheet,dialog,.empty,.icon-btn,.month-controls,.field,.secondary,.filter,.segment,.settingcard,.assetitem,.movement){background:var(--surface)!important;color:var(--ink)!important;border-color:var(--line)!important}
+ & :is(.subtext,.hint,.tiny,.smallcaps,.cap,.tx-meta,.assettype,.note,.navitem,.empty,.fieldlabel,.settingcard p,.trend-label){color:var(--muted)!important}
+ & :is(h1,h2,h3,.month-name,.assetval,.num,.tx-title,.asset-total,.budget-label,.catname,.catvalue){color:var(--ink)}
+ & :is(.active,.textbtn){color:#51ddbd!important}
+}}
+:root[data-theme="light"] body{background:var(--bg)}
 </style>
 </head>
 <body>
@@ -57,16 +72,15 @@ body { padding-bottom:20px; background:#f6f7fa; }
 <section class="v3-wrap" id="v3AuthRoot">
  <div class="v3-panel">
   <div class="v3-mark" aria-hidden="true">€</div>
-  <div class="v3-eyebrow">FINANZE V3 · TEST SINCRONIZZAZIONE</div>
+  <div class="v3-eyebrow">FINANZE V3 · ACCESSO</div>
   <h1 id="v3Title">Benvenuto</h1>
   <p class="v3-intro" id="v3Description">Accedi con l'account che hai creato in Supabase.</p>
-  <section id="v3Config" class="v3-hidden">
-   <p class="v3-intro">Per il primo test incolla la <strong>publishable key</strong> del progetto Supabase. È una chiave pubblica; non inserire mai una secret key.</p>
-   <form id="v3ConfigForm">
-    <label class="v3-label" for="v3Key">Publishable key (inizia con sb_publishable_)</label>
-    <input class="v3-field" id="v3Key" type="text" autocomplete="off" spellcheck="false" placeholder="sb_publishable_..." required>
-    <button type="submit" class="v3-submit">Salva configurazione</button>
-   </form>
+  <section id="v3SetPassword" class="v3-hidden">
+    <form id="choosePassword">
+      <label class="v3-label" for="newPassword">Nuova password</label>
+      <input class="v3-field" id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="v3-submit">Salva la password</button>
+    </form>
   </section>
   <section id="v3Login" class="v3-hidden">
    <form id="v3LoginForm">
@@ -76,192 +90,39 @@ body { padding-bottom:20px; background:#f6f7fa; }
     <input class="v3-field" id="v3Password" type="password" autocomplete="current-password" required placeholder="La password di Finanze v3">
     <button type="submit" class="v3-submit" id="v3LoginBtn">Accedi</button>
    </form>
-   <button type="button" id="v3ChangeConfig" class="v3-inline">Modifica chiave pubblica</button>
+   <button type="button" id="forgotPassword" class="v3-inline">Ho dimenticato la password</button>
   </section>
   <section id="v3Success" class="v3-hidden">
    <p class="v3-label">Account autenticato</p>
    <div class="v3-user" id="v3UserEmail"></div>
-   <div class="v3-note">Account autenticato. Questo test scrive <strong>solo un movimento dimostrativo di 1,23 €</strong> su Supabase. I dati di Finanze v2 rimangono intatti.</div>
-   <section class="v3-probe" aria-labelledby="v3ProbeTitle">
-    <h2 id="v3ProbeTitle">Sincronizzazione cloud</h2>
-    <p>Verifichiamo lettura, salvataggio e cancellazione di un movimento di prova. Le altre funzioni dell'app sono ancora disattivate.</p>
-    <div class="v3-probe-status" id="v3ProbeState" role="status" aria-live="polite">Connessione al database in corso…</div>
-    <button class="v3-small-btn" id="v3ProbeRead" type="button">1. Controlla i dati nel cloud</button>
-    <button class="v3-submit" id="v3ProbeWrite" type="button">2. Salva spesa di prova da 1,23 €</button>
-    <button class="v3-small-btn red" id="v3ProbeDelete" type="button" disabled>3. Elimina la spesa di prova</button>
-   </section>
+   <button type="button" id="reloadCloud" class="v3-small-btn">Aggiorna dal cloud</button>
    <button type="button" class="v3-submit" id="v3LogoutBtn">Esci dall'account</button>
   </section>
   <div role="status" aria-live="polite" id="v3Status" class="v3-message"></div>
-  <p class="v3-muted">Questa versione non legge né modifica i dati della v2. Il codice originale è conservato ma inattivo durante il test cloud. Il movimento di prova è salvato esclusivamente in Supabase.</p>
+
  </div>
 </section>
 
-<main id="app" aria-live="polite"></main>
-<button class="fab" aria-label="Aggiungi movimento" id="addFab">+</button>
-<nav class="nav" aria-label="Navigazione"><button class="navitem active" data-tab="home"><span class="navicon">◫</span>Riepilogo</button><button class="navitem" data-tab="transactions"><span class="navicon">⇄</span>Movimenti</button><button class="navitem" data-tab="wealth"><span class="navicon">▥</span>Patrimonio</button><button class="navitem" data-tab="settings"><span class="navicon">⚙</span>Dati</button></nav>
+<section id="workspace" hidden><main id="app" aria-live="polite"></main><nav class="nav" aria-label="Navigazione"><button class="navitem active" data-tab="home"><span class="navicon">◫</span>Riepilogo</button><button class="navitem" data-tab="transactions"><span class="navicon">⇄</span>Movimenti</button><button class="navitem" data-tab="wealth"><span class="navicon">▥</span>Patrimonio</button><button class="navitem" data-tab="settings"><span class="navicon">⚙</span>Dati</button></nav><button class="fab" aria-label="Aggiungi movimento" id="addFab">+</button>
 <dialog id="txDialog"><div class="sheet"><div class="sheet-title"><h2 id="txDialogTitle">Nuovo movimento</h2><button class="close" data-close="txDialog" aria-label="Chiudi">×</button></div><form id="txForm"><input type="hidden" name="txid"><div class="segmented"><button type="button" class="segment active" data-type="expense">↗ Uscita</button><button type="button" class="segment" data-type="income">↙ Entrata</button></div><input type="hidden" name="type" value="expense"><label class="fieldlabel" for="txamount">Importo (€)</label><input id="txamount" class="field" name="amount" type="text" inputmode="decimal" placeholder="Es. 24,90" required maxlength="18"><div class="inlinefields"><div><label class="fieldlabel" for="txdate">Data</label><input id="txdate" class="field" name="date" type="date" required></div><div><label class="fieldlabel" for="txcategory">Categoria</label><select id="txcategory" class="field" name="category"></select></div></div><div id="splitArea"><label class="fieldlabel" for="txsubcategory">Sottocategoria</label><select id="txsubcategory" class="field" name="subcategory"></select><div style="margin-top:13px"><label style="font-size:13px"><input type="checkbox" id="splitToggle"> Suddividi questa spesa in più categorie</label></div><div id="splitRows" style="display:none;margin-top:12px"></div><button type="button" class="secondary" id="addSplit" style="display:none;margin-top:10px">+ Aggiungi quota</button><div id="splitBalance" class="subtext" style="margin-top:8px"></div></div><label class="fieldlabel" for="txnote">Descrizione (facoltativa)</label><input id="txnote" class="field" name="note" maxlength="140" placeholder="Es. supermercato, benzina…"><div class="actions"><button type="button" class="secondary" data-close="txDialog">Annulla</button><button class="primary" type="submit">Salva movimento</button></div><div class="actions" id="txDeleteBox" style="display:none"><button type="button" class="danger" id="txDelete">Elimina movimento</button></div></form></div></dialog>
 <dialog id="assetDialog"><div class="sheet"><div class="sheet-title"><h2 id="assetDialogTitle">Nuova voce patrimoniale</h2><button class="close" data-close="assetDialog" aria-label="Chiudi">×</button></div><form id="assetForm"><input type="hidden" name="assetid"><label class="fieldlabel" for="assetname">Nome</label><input class="field" id="assetname" name="name" maxlength="70" placeholder="Es. Conto deposito" required><label class="fieldlabel" for="assetvalue">Valore attuale (€)</label><input class="field" id="assetvalue" name="value" inputmode="decimal" placeholder="Es. 15000" required><label class="fieldlabel" for="assetkind">Tipo</label><select class="field" name="kind" id="assetkind"><option value="asset">Attività (possiedo)</option><option value="liability">Passività (devo)</option></select><p class="note">Aggiorna manualmente questi valori quando cambiano. I movimenti non modificano automaticamente il patrimonio, così evitiamo doppi conteggi.</p><div class="actions"><button type="button" class="secondary" data-close="assetDialog">Annulla</button><button class="primary" type="submit">Salva voce</button></div><div class="actions" id="assetDeleteBox" style="display:none"><button type="button" class="danger" id="assetDelete">Elimina voce</button></div></form></div></dialog>
-<input id="importFile" type="file" accept=".json,application/json" hidden>
-<script type="text/plain" id="finanze-v2-preserved">
-(()=>{'use strict';
-const STORAGE='finanze_personali_v1';
-const taxonomy={Casa:['Affitto','Bollette','Condominio','Arredamento','Manutenzione','Prodotti per la casa','Altro'],Spesa:['Supermercato','Alimentari','Prodotti per la casa','Altro'],Trasporti:['Carburante','Assicurazione','Bollo','Tagliandi','Riparazioni','Pedaggi','Parcheggi','Accessori','Altro'],Ristoranti:['Ristoranti','Bar e caffè','Delivery','Pasti al lavoro','Altro'],Viaggi:['Voli','Alloggi','Noleggi','Ristorazione','Escursioni','Immersioni','Trasporti locali','Altro'],Shopping:['Abbigliamento','Elettronica','Fotografia','Hobby','Regali','Varie','Altro'],Salute:['Farmacia','Visite','Fisioterapia','Sport','Cura personale','Altro'],Abbonamenti:['Telefonia e internet','Streaming','App','Carte e servizi','Altro'],Tasse:['Imposte','Commissioni','Altro'],Altro:['Varie','Imprevisti']};
-const categories={expense:Object.keys(taxonomy),income:['Stipendio','Extra','Rimborsi','Interessi','Regali','Altro']};
-const em={Casa:'⌂',Spesa:'🛒',Trasporti:'🚘',Ristoranti:'☕',Viaggi:'✈️',Shopping:'🛍️',Salute:'✚',Abbonamenti:'▣',Tasse:'▤',Altro:'•',Stipendio:'◈',Extra:'✦',Rimborsi:'↶',Interessi:'↗',Regali:'🎁'};
-const colors=['#28bba2','#6b8bd2','#e9a45d','#9a87d9','#ec8990','#5bb8c9','#aaad68','#b791b0','#d39d66','#8499b1'];
-const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
-const monthNow=today().slice(0,7);
-let state={transactions:[],assets:[],budget:0};try{const x=JSON.parse(localStorage.getItem(STORAGE));if(x&&typeof x==='object'){state.transactions=Array.isArray(x.transactions)?x.transactions:[];state.assets=Array.isArray(x.assets)?x.assets:[];state.budget=Number(x.budget)||0}}catch(e){console.error(e)}
-let tab='home',month=monthNow,filter='all';const $=(s)=>document.querySelector(s),eu=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:2});const fmt=n=>eu.format(Number(n)||0);const num=s=>{let v=String(s).trim().replace(/\s/g,'');if(v.includes(',')&&v.includes('.'))v=v.replace(/\./g,'').replace(',','.');else v=v.replace(',','.');return Number(v)};const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const ident=()=>crypto?.randomUUID?.()||`${Date.now()}-${Math.random()}`;const save=()=>{try{localStorage.setItem(STORAGE,JSON.stringify(state))}catch(e){alert('Impossibile salvare sul dispositivo: verifica lo spazio disponibile ed esporta un backup.')}};const sum=(a,fn)=>a.reduce((p,x)=>p+(fn(x)||0),0);const curTx=()=>state.transactions.filter(x=>x.date?.startsWith(month));const totals=x=>({income:sum(x.filter(t=>t.type==='income'),t=>Number(t.amount)),expense:sum(x.filter(t=>t.type==='expense'),t=>Number(t.amount))});const changeMonth=(delta)=>{let [y,m]=month.split('-').map(Number);m+=delta;if(m<1){m=12;y--}if(m>12){m=1;y++}month=`${y}-${String(m).padStart(2,'0')}`;render()};const nameMonth=m=>new Date(Number(m.slice(0,4)),Number(m.slice(5,7))-1,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'});const heading=(h,action='')=>`<div class="section-head"><h2>${h}</h2>${action}</div>`;const top=(kicker,title)=>`<div class="topline"><div><div class="smallcaps">${kicker}</div><h1>${title}</h1></div><div class="avatar">€</div></div>`;const months=()=>`<div class="monthrow"><div class="month-name">${safe(nameMonth(month))}</div><div class="month-controls"><button class="icon-btn" data-month="-1" aria-label="Mese precedente">‹</button><button class="icon-btn" data-month="1" aria-label="Mese successivo">›</button></div></div>`;const empty=(emoji,text)=>`<div class="empty"><div class="emoji">${emoji}</div>${text}</div>`;
-const txView=(t)=>`<div class="movement" data-edit-tx="${safe(t.id)}" role="button" tabindex="0"><div class="symbol">${em[t.category]||'•'}</div><div class="tx-main"><div class="tx-title">${safe(t.note||t.category)}</div><div class="tx-meta">${safe(t.splits?.length>1?'Spesa suddivisa':t.category+(t.subcategory?' › '+t.subcategory:''))} · ${new Date(t.date+'T12:00:00').toLocaleDateString('it-IT',{day:'numeric',month:'short'})}</div></div><div class="tx-amt ${t.type}">${t.type==='income'?'+':'−'}${fmt(t.amount)}</div></div>`;
-const sortedTx=arr=>[...arr].sort((a,b)=>b.date.localeCompare(a.date)||String(b.id).localeCompare(String(a.id)));
-function home(){const all=curTx(),t=totals(all),net=t.income-t.expense;const budget=state.budget;const rate=t.income>0?Math.round(net/t.income*100):null;const last=sortedTx(all).slice(0,4);let barmax=1;const trend=Array.from({length:6},(_,i)=>{const d=new Date(Number(month.slice(0,4)),Number(month.slice(5,7))-1-(5-i),1),m=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`,t=totals(state.transactions.filter(x=>x.date?.startsWith(m)));barmax=Math.max(barmax,t.income,t.expense);return {...t,month:d.toLocaleDateString('it-IT',{month:'short'})}});const grouped={};all.filter(x=>x.type==='expense').forEach(x=>(x.splits?.length?x.splits:[{category:x.category,subcategory:x.subcategory||'Altro',amount:x.amount}]).forEach(q=>grouped[q.category]=(grouped[q.category]||0)+Number(q.amount)));const cats=Object.entries(grouped).sort((a,b)=>b[1]-a[1]);const catHtml=cats.length?cats.map(([k,v],i)=>`<div class="categoryrow"><div class="between"><div class="catname">${em[k]||'•'} &nbsp;${safe(k)}</div><div class="catvalue">${fmt(v)}</div></div><div class="categorybar"><span style="width:${Math.max(1,v/t.expense*100)}%;background:${colors[i%colors.length]}"></span></div></div>`).join(''):empty('📊','Le categorie di spesa compariranno qui.');return `${top('IL TUO SPAZIO FINANZIARIO','Panoramica')}${months()}<div class="hero"><div class="eyebrow">Bilancio del mese</div><div class="main-num">${net<0?'−':''}${fmt(Math.abs(net))}</div><div class="thin-line"></div><div class="hero-metrics"><div><div class="metric-label"><i class="dot green"></i>Entrate</div><div class="metric-value">${fmt(t.income)}</div></div><div><div class="metric-label"><i class="dot pink"></i>Uscite</div><div class="metric-value">${fmt(t.expense)}</div></div></div></div><div class="cards2"><div class="stat"><div class="cap">Risparmio sulle entrate</div><div class="num">${rate===null?'—':rate+'%'}</div><div class="hint">Nel mese selezionato</div></div><div class="stat"><div class="cap">Movimenti</div><div class="num">${all.length}</div><div class="hint">Registrati nel mese</div></div></div>${heading('Budget di spesa',`<button class="textbtn" data-tab="settings">Imposta ›</button>`)}<div class="card"><div class="between"><span class="budget-label">${budget>0?fmt(t.expense)+' di '+fmt(budget):'Nessun budget impostato'}</span><span class="subtext">${budget>0?Math.round(t.expense/budget*100)+'%':'—'}</span></div><div class="budget-bottom budgetbar"><span style="width:${budget>0?Math.min(100,t.expense/budget*100):0}%;background:${budget>0&&t.expense>budget?'#e46c76':'#19ad91'}"></span></div><div class="tiny" style="margin-top:10px">${budget>0?(budget-t.expense>=0?fmt(budget-t.expense)+' rimanenti':fmt(t.expense-budget)+' oltre il budget'):'Puoi fissare un limite mensile alle uscite.'}</div></div>${heading('Andamento degli ultimi 6 mesi')}<div class="card"><div class="trend">${trend.map(x=>`<div class="trend-month"><div class="trend-bars"><div class="trend-bar income" title="Entrate ${fmt(x.income)}" style="height:${x.income?Math.max(4,x.income/barmax*100):0}%"></div><div class="trend-bar expense" title="Uscite ${fmt(x.expense)}" style="height:${x.expense?Math.max(4,x.expense/barmax*100):0}%"></div></div><div class="trend-label">${safe(x.month)}</div></div>`).join('')}</div><div class="legend"><span><i style="background:#3abca4"></i>Entrate</span><span><i style="background:#f2abb1"></i>Uscite</span></div></div>${heading('Dove spendi') }<div class="card">${catHtml}</div>${heading('Dettaglio delle sottocategorie')}<div class="card">${subReport(all)}</div>${heading('Ultimi movimenti',`<button class="textbtn" data-tab="transactions">Vedi tutti ›</button>`)}<div class="card">${last.length?last.map(txView).join(''):empty('🧾','Ancora nessun movimento. Tocca + per inserire la prima entrata o spesa.')}</div>`}
-function subReport(items){const groups={};items.filter(t=>t.type==='expense').forEach(t=>(t.splits?.length?t.splits:[{category:t.category,subcategory:t.subcategory||'Non specificata',amount:t.amount}]).forEach(q=>{const k=q.category+' / '+(q.subcategory||'Non specificata');groups[k]=(groups[k]||0)+Number(q.amount)}));const rows=Object.entries(groups).sort((a,b)=>b[1]-a[1]);return rows.length?rows.map(([k,v])=>`<div class="between" style="padding:10px 0;border-bottom:1px solid #edf0f5"><span class="subtext">${safe(k)}</span><b style="font-size:13px">${fmt(v)}</b></div>`).join(''):empty('📈','Le sottocategorie appariranno dopo aver registrato le spese.')}
-function transactions(){let all=sortedTx(curTx());if(filter!=='all')all=all.filter(x=>x.type===filter);const t=totals(all);return `${top('ENTRATE E USCITE','Movimenti')}${months()}<div class="cards2" style="margin:0 0 24px"><div class="stat"><div class="cap">Entrate</div><div class="num" style="color:#159c83">${fmt(t.income)}</div></div><div class="stat"><div class="cap">Spese</div><div class="num" style="color:#ce6e76">${fmt(t.expense)}</div></div></div><div class="filterbar"><button class="filter ${filter==='all'?'active':''}" data-filter="all">Tutti</button><button class="filter ${filter==='expense'?'active':''}" data-filter="expense">Uscite</button><button class="filter ${filter==='income'?'active':''}" data-filter="income">Entrate</button></div><div class="card">${all.length?all.map(txView).join(''):empty('🧾','Non ci sono movimenti per questo mese e filtro. Tocca + per aggiungerne uno.')}</div>`}
-function wealth(){const assets=state.assets.filter(x=>x.kind==='asset'),liabs=state.assets.filter(x=>x.kind==='liability');const a=sum(assets,x=>Number(x.value)),l=sum(liabs,x=>Number(x.value));const listing=(ar)=>ar.length?ar.map(x=>`<div class="assetitem" data-edit-asset="${safe(x.id)}" role="button" tabindex="0"><div class="symbol">${x.kind==='asset'?'🏦':'↘'}</div><div><div class="tx-title">${safe(x.name)}</div><div class="assettype">${x.kind==='asset'?'Attività':'Passività'} · Tocca per modificare</div></div><div class="assetval">${fmt(x.value)}</div></div>`).join(''):empty('◌','Non hai ancora aggiunto voci.');return `${top('FOTOGRAFIA DELLE TUE RISORSE','Patrimonio')}<div class="card"><div class="subtext">Patrimonio netto stimato</div><div class="asset-total">${fmt(a-l)}</div><div class="subtext">Attività − passività inserite manualmente</div><div class="cards2"><div class="stat" style="background:#f1f8f6;box-shadow:none"><div class="cap">Attività</div><div class="num" style="color:#118d77">${fmt(a)}</div></div><div class="stat" style="background:#faf2f3;box-shadow:none"><div class="cap">Debiti</div><div class="num" style="color:#bd6b73">${fmt(l)}</div></div></div></div>${heading('Attività',`<button class="textbtn" id="addAssetLink">+ Aggiungi</button>`)}<div class="card">${listing(assets)}</div>${heading('Passività')}<div class="card">${listing(liabs)}</div><p class="note">Il patrimonio è una fotografia dei valori che inserisci. Non viene aggiornato automaticamente con le entrate o le uscite: aggiorna periodicamente i saldi dei tuoi conti.</p>`}
-function settings(){return `${top('CONTROLLO E SICUREZZA','I tuoi dati')}<div class="card settingcard"><h3>Budget mensile</h3><p>Fissa un limite complessivo alle spese di ogni mese. I calcoli sono basati sui movimenti registrati.</p><form id="budgetForm"><label class="fieldlabel" for="budgetInput">Limite di spesa (€)</label><input class="field" id="budgetInput" inputmode="decimal" placeholder="Es. 2000" value="${state.budget||''}"><div class="actions"><button class="primary" type="submit">Salva budget</button></div></form></div><div class="card settingcard"><h3>Backup e trasferimento</h3><p>I dati restano nella memoria locale di questa app sul dispositivo. Non sono sincronizzati con iCloud: esporta un backup JSON e conservalo nell'app File o su iCloud Drive.</p><div class="rows-btn"><button class="secondary" id="exportJson">Esporta backup</button><button class="secondary" id="importJson">Importa backup</button></div><div style="height:10px"></div><button class="secondary" id="exportCsv" style="width:100%">Esporta movimenti CSV</button></div><div class="card settingcard"><h3>Privacy e limiti</h3><p>Nessuna registrazione o collegamento bancario. Le informazioni non vengono inviate a un server dall'app. Cancellare i dati del sito, reinstallare l'app o cambiare telefono può far perdere i movimenti senza backup.</p><p>Non inserire password, PIN, IBAN completi o numeri di carta.</p></div><div class="card settingcard"><h3>Prova l'app</h3><p>Puoi caricare alcune operazioni dimostrative per vedere come si presentano i grafici. I tuoi eventuali dati esistenti resteranno intatti.</p><button class="secondary" id="loadDemo">Aggiungi esempi</button></div><div class="card settingcard"><h3>Riparti da zero</h3><p>Elimina definitivamente tutti i movimenti, le voci patrimoniali e il budget salvati su questo dispositivo.</p><button class="danger" id="clearAll">Cancella tutti i dati</button></div>`}
-function render(){const app=$('#app');app.innerHTML=tab==='home'?home():tab==='transactions'?transactions():tab==='wealth'?wealth():settings();document.querySelectorAll('.navitem').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));$('#addFab').style.display=tab==='settings'?'none':'block';$('#addFab').setAttribute('aria-label',tab==='wealth'?'Aggiungi voce patrimoniale':'Aggiungi movimento');}
-function categoriesFor(type,selected){const sel=$('#txcategory');sel.innerHTML=categories[type].map(c=>`<option value="${c}" ${c===selected?'selected':''}>${c}</option>`).join('');updateSubcategory()}
-function updateSubcategory(selected){const f=$('#txForm'),c=f.elements.category.value;f.elements.subcategory.innerHTML=(taxonomy[c]||['Altro']).map(x=>`<option value="${safe(x)}" ${x===selected?'selected':''}>${safe(x)}</option>`).join('')}
-function splitLine(q={}){const row=document.createElement('div');row.className='splitrow';row.style='border:1px solid #e8ecf2;padding:12px;border-radius:13px;margin-bottom:9px';row.innerHTML=`<select class="field splitcat" aria-label="Categoria quota">${categories.expense.map(c=>`<option ${c===q.category?'selected':''}>${safe(c)}</option>`).join('')}</select><select class="field splitsub" aria-label="Sottocategoria quota" style="margin-top:7px"></select><div class="between" style="margin-top:7px"><input class="field splitamount" aria-label="Importo quota" inputmode="decimal" placeholder="Importo €" style="width:70%" value="${q.amount??''}"><button type="button" class="danger splitremove">×</button></div>`;$('#splitRows').append(row);const update=()=>{row.querySelector('.splitsub').innerHTML=(taxonomy[row.querySelector('.splitcat').value]||['Altro']).map(x=>`<option ${x===q.subcategory?'selected':''}>${safe(x)}</option>`).join('')};row.querySelector('.splitcat').addEventListener('change',()=>{q.subcategory='';update()});row.querySelector('.splitremove').addEventListener('click',()=>{row.remove();splitBalance()});row.querySelector('.splitamount').addEventListener('input',splitBalance);update();splitBalance()}
-function splitBalance(){const a=num($('#txamount').value||0),v=[...document.querySelectorAll('.splitamount')].reduce((n,x)=>n+(Number.isFinite(num(x.value||0))?Math.round(num(x.value||0)*100):0),0);$('#splitBalance').textContent=$('#splitToggle').checked?`Totale quote: ${fmt(v/100)} / ${fmt(a)} · Differenza: ${fmt((Math.round(a*100)-v)/100)}`:''}
-function toggleSplit(){const active=$('#splitToggle').checked&&$('#txForm').elements.type.value==='expense';$('#splitRows').style.display=active?'block':'none';$('#addSplit').style.display=active?'block':'none';$('#splitArea').style.display=$('#txForm').elements.type.value==='expense'?'block':'none';$('#txsubcategory').style.display=active?'none':'block';if(active&&!$('#splitRows').children.length){splitLine({category:$('#txcategory').value,subcategory:$('#txsubcategory').value,amount:$('#txamount').value});splitLine({category:'Spesa',subcategory:'Supermercato',amount:''})}splitBalance()}
-
-function setType(type,selected){$('#txForm').elements.type.value=type;document.querySelectorAll('.segment').forEach(b=>b.classList.toggle('active',b.dataset.type===type));categoriesFor(type,selected);toggleSplit()}
-function txOpen(id){const f=$('#txForm');f.reset();const t=state.transactions.find(x=>x.id===id);$('#txDialogTitle').textContent=t?'Modifica movimento':'Nuovo movimento';f.elements.txid.value=t?.id||'';setType(t?.type||'expense',t?.category);f.elements.amount.value=t?String(t.amount).replace('.',','):'';f.elements.date.value=t?.date||today();updateSubcategory(t?.subcategory);$('#splitRows').innerHTML='';$('#splitToggle').checked=!!(t?.splits?.length>1);(t?.splits||[]).forEach(splitLine);toggleSplit();f.elements.note.value=t?.note||'';$('#txDeleteBox').style.display=t?'flex':'none';$('#txDialog').showModal()}
-function assetOpen(id){const f=$('#assetForm');f.reset();const a=state.assets.find(x=>x.id===id);$('#assetDialogTitle').textContent=a?'Modifica voce':'Nuova voce patrimoniale';f.elements.assetid.value=a?.id||'';f.elements.name.value=a?.name||'';f.elements.value.value=a?String(a.value).replace('.',','):'';f.elements.kind.value=a?.kind||'asset';$('#assetDeleteBox').style.display=a?'flex':'none';$('#assetDialog').showModal()}
-function download(content,file,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=file;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
-function csvCell(s){let v=String(s??'');if(/^[=+@\-]/.test(v)&&!/^[-+]?\d+(?:[.,]\d+)?$/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'}
-function exportCsv(){const lines=[['Data','Tipo','Categoria','Sottocategoria','Importo EUR','Descrizione'],...sortedTx(state.transactions).flatMap(t=>(t.splits?.length?t.splits:[{category:t.category,subcategory:t.subcategory||'',amount:t.amount}]).map(q=>[t.date,t.type==='income'?'Entrata':'Uscita',q.category,q.subcategory,(t.type==='expense'?'-':'')+String(q.amount).replace('.',','),t.note||'']))];download('\ufeff'+lines.map(x=>x.map(csvCell).join(';')).join('\r\n'),'movimenti-finanze.csv','text/csv;charset=utf-8')}
-function addDemo(){if(!confirm('Aggiungere movimenti di esempio? Saranno visibili insieme ai tuoi eventuali dati.'))return;const y=Number(month.slice(0,4)),m=Number(month.slice(5,7));const records=[['income',3200,'Stipendio',2,'Stipendio di esempio'],['expense',550,'Casa',3,'Affitto esempio'],['expense',180,'Spesa',6,'Supermercato'],['expense',60,'Trasporti',9,'Carburante'],['expense',45,'Ristoranti',12,'Cena'],['expense',95,'Abbonamenti',13,'Servizi e abbonamenti'],['expense',125,'Shopping',17,'Acquisti vari']];records.forEach(([type,amount,category,day,note])=>{const max=new Date(y,m,0).getDate();state.transactions.push({id:ident(),type,amount,category,date:`${month}-${String(Math.min(day,max)).padStart(2,'0')}`,note,account:'Conto corrente'})});save();tab='home';render()}
-// Event delegation for the dynamically rendered pages.
-$('#app').addEventListener('click',e=>{const t=e.target.closest('button,[data-edit-tx],[data-edit-asset]');if(!t)return;if(t.dataset.tab){tab=t.dataset.tab;render();scrollTo(0,0)}else if(t.dataset.month)changeMonth(Number(t.dataset.month));else if(t.dataset.filter){filter=t.dataset.filter;render()}else if(t.dataset.editTx)txOpen(t.dataset.editTx);else if(t.dataset.editAsset)assetOpen(t.dataset.editAsset);else if(t.id==='addAssetLink')assetOpen();else if(t.id==='exportJson')download(JSON.stringify({...state,version:2,exportedAt:new Date().toISOString()},null,2),`backup-finanze-${today()}.json`,'application/json');else if(t.id==='importJson')$('#importFile').click();else if(t.id==='exportCsv')exportCsv();else if(t.id==='loadDemo')addDemo();else if(t.id==='clearAll'){if(confirm('ATTENZIONE: cancellare TUTTI i dati salvati su questo dispositivo? Prima esporta un backup.')){if(confirm('Confermi la cancellazione definitiva?')){state={transactions:[],assets:[],budget:0};save();tab='home';render()}}}});
-$('#app').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.editTx){e.preventDefault();txOpen(e.target.dataset.editTx)}if((e.key==='Enter'||e.key===' ')&&e.target.dataset.editAsset){e.preventDefault();assetOpen(e.target.dataset.editAsset)}});
-$('#app').addEventListener('submit',e=>{if(e.target.id!=='budgetForm')return;e.preventDefault();const v=num($('#budgetInput').value||0);if(!Number.isFinite(v)||v<0){alert('Inserisci un budget valido.');return}state.budget=v;save();render();alert('Budget salvato.')});
-document.querySelectorAll('.navitem').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;render();scrollTo(0,0)}));$('#addFab').addEventListener('click',()=>tab==='wealth'?assetOpen():txOpen());document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.close).close()));document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));document.querySelectorAll('.segment').forEach(b=>b.addEventListener('click',()=>setType(b.dataset.type)));
-$('#txcategory').addEventListener('change',()=>updateSubcategory());$('#splitToggle').addEventListener('change',toggleSplit);$('#addSplit').addEventListener('click',()=>splitLine());$('#txamount').addEventListener('input',splitBalance);
-$('#txForm').addEventListener('submit',e=>{e.preventDefault();const f=e.target,a=num(f.elements.amount.value),date=f.elements.date.value,type=f.elements.type.value,category=f.elements.category.value;if(!Number.isFinite(a)||a<=0||a>1e12){alert('Inserisci un importo positivo valido.');return}if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){alert('Inserisci una data valida.');return}const old=state.transactions.findIndex(x=>x.id===f.elements.txid.value);let splits=[];if(type==='expense'&&$('#splitToggle').checked){splits=[...document.querySelectorAll('.splitrow')].map(r=>({category:r.querySelector('.splitcat').value,subcategory:r.querySelector('.splitsub').value,amount:Math.round(num(r.querySelector('.splitamount').value)*100)/100}));if(splits.length<2||splits.some(q=>!Number.isFinite(q.amount)||q.amount<=0)||Math.round(splits.reduce((n,q)=>n+q.amount,0)*100)!==Math.round(a*100)){alert('Le quote devono essere almeno due, positive e sommare esattamente all’importo totale.');return}}const t={id:old>=0?state.transactions[old].id:ident(),type,date,amount:Math.round(a*100)/100,category,subcategory:type==='expense'?f.elements.subcategory.value:'',splits,account:'Non specificato',note:f.elements.note.value.trim()};if(old>=0)state.transactions[old]=t;else state.transactions.push(t);month=date.slice(0,7);save();$('#txDialog').close();render()});
-$('#txDelete').addEventListener('click',()=>{const id=$('#txForm').elements.txid.value;if(confirm('Eliminare questo movimento?')){state.transactions=state.transactions.filter(x=>x.id!==id);save();$('#txDialog').close();render()}});
-$('#assetForm').addEventListener('submit',e=>{e.preventDefault();const f=e.target,v=num(f.elements.value.value);if(!Number.isFinite(v)||v<0||v>1e14){alert('Inserisci un valore valido (positivo o zero).');return}const old=state.assets.findIndex(x=>x.id===f.elements.assetid.value);const a={id:old>=0?state.assets[old].id:ident(),name:f.elements.name.value.trim(),value:Math.round(v*100)/100,kind:f.elements.kind.value};if(!a.name){alert('Inserisci un nome.');return}if(old>=0)state.assets[old]=a;else state.assets.push(a);save();$('#assetDialog').close();render()});
-$('#assetDelete').addEventListener('click',()=>{const id=$('#assetForm').elements.assetid.value;if(confirm('Eliminare questa voce patrimoniale?')){state.assets=state.assets.filter(x=>x.id!==id);save();$('#assetDialog').close();render()}});
-$('#importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const x=JSON.parse(await file.text());if(!x||!Array.isArray(x.transactions)||!Array.isArray(x.assets)||!Number.isFinite(Number(x.budget)))throw Error('Formato file non riconosciuto');if(x.transactions.length>300000||x.assets.length>10000)throw Error('File troppo grande');const ts=x.transactions.map(t=>{if(!['income','expense'].includes(t.type)||!/^\d{4}-\d{2}-\d{2}$/.test(t.date)||!Number.isFinite(Number(t.amount))||Number(t.amount)<0)throw Error('Movimenti non validi');return {id:String(t.id||ident()),type:t.type,date:t.date,amount:Number(t.amount),category:String(t.category||'Altro').slice(0,60),account:String(t.account||'Altro').slice(0,60),note:String(t.note||'').slice(0,140),subcategory:String(t.subcategory||'').slice(0,60),splits:Array.isArray(t.splits)?t.splits.map(q=>({category:String(q.category||'Altro').slice(0,60),subcategory:String(q.subcategory||'Altro').slice(0,60),amount:Number(q.amount)})):[]}});const as=x.assets.map(a=>{if(!['asset','liability'].includes(a.kind)||!Number.isFinite(Number(a.value))||Number(a.value)<0)throw Error('Voci patrimoniali non valide');return{id:String(a.id||ident()),kind:a.kind,value:Number(a.value),name:String(a.name||'Voce').slice(0,70)}});if(confirm(`Importare ${ts.length} movimenti e ${as.length} voci patrimoniali? Questo SOSTITUIRÀ i dati presenti nell'app.`)){state={transactions:ts,assets:as,budget:Number(x.budget)||0};save();tab='home';month=monthNow;render();alert('Backup importato con successo.')}}catch(err){alert('Impossibile importare il file: '+err.message)}e.target.value=''});
-render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-})();
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</section>
+<script src="./dashboard.js"></script>
+<script src="./movements.js"></script>
+<script src="./vendor/supabase.js"></script>
 <script>
 (() => {
   'use strict';
   const SUPABASE_URL = 'https://jifxymefooljkaldzpxh.supabase.co';
-  const CONFIG_STORAGE = 'finanze_v3_test_publishable_key';
-  const TEST_MARKER = 'finanze_v3_sync_probe_v1';
-  const TEST_DESCRIPTION = 'TEST FINANZE V3 - NON E UNA SPESA REALE';
+  const PUBLIC_KEY = 'sb_publishable_MNSOPbYH_sClTUointmV8w_RUqvWBwF';
+  const incoming = new URLSearchParams(location.hash.slice(1));
+  let setPassword = ['invite','recovery'].includes(incoming.get('type')) && incoming.has('access_token');
   const $ = id => document.getElementById(id);
   let client = null;
   let initialized = false;
   let currentUserId = null;
-  let testRowId = null;
-  let probeReadOk = false;
-  let probeUnexpected = false;
-  let busy = false;
-  const views = ['v3Config', 'v3Login', 'v3Success'];
-  const localDate = () => {
-    const d = new Date();
-    return [d.getFullYear(), String(d.getMonth() + 1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-');
-  };
-  function probeStatus(text, error=false) {
-    $('v3ProbeState').textContent = text;
-    $('v3ProbeState').classList.toggle('error', error);
-  }
-  function updateProbeButtons() {
-    $('v3ProbeRead').disabled = busy || !currentUserId;
-    $('v3ProbeWrite').disabled = busy || !currentUserId || !probeReadOk || probeUnexpected || !!testRowId;
-    $('v3ProbeDelete').disabled = busy || !currentUserId || !probeReadOk || probeUnexpected || !testRowId;
-    $('v3LogoutBtn').disabled = busy;
-  }
-  function setBusy(value) { busy = !!value; updateProbeButtons(); }
-  // RLS + user_id: la query non legge mai le righe di un altro utente.
-  async function readProbe() {
-    if (!client || !currentUserId) return;
-    const user = currentUserId;
-    setBusy(true);
-    probeReadOk = false;
-    probeUnexpected = false;
-    probeStatus('Controllo del movimento di prova sul database…');
-    try {
-      const { data, error } = await client.from('finance_transactions')
-        .select('id, transaction_date, kind, amount_cents, description')
-        .eq('user_id', user)
-        .eq('legacy_id', TEST_MARKER)
-        .limit(1);
-      if (error) throw error;
-      if (currentUserId !== user) return;
-      testRowId = data && data.length ? data[0].id : null;
-      probeReadOk = true;
-      if (testRowId) {
-        const row = data[0];
-        if (row.kind !== 'expense' || row.amount_cents !== 123 || row.description !== TEST_DESCRIPTION) {
-          probeUnexpected = true;
-          probeStatus('Trovato un record con l’identificativo di test ma dati inattesi. Non lo modificheremo.',true);
-        } else {
-          probeStatus('Movimento di prova trovato nel cloud: uscita di 1,23 € del '+row.transaction_date+'. Il salvataggio è persistente.');
-        }
-      } else {
-        probeStatus('Connessione riuscita: nessun movimento di prova presente nel cloud. Puoi crearne uno con il pulsante 2.');
-      }
-    } catch (err) {
-      testRowId = null;
-      probeReadOk = false;
-      probeStatus('Errore lettura Supabase: ' + (err.message || 'Rete non disponibile'), true);
-    } finally { setBusy(false); }
-  }
-  async function writeProbe() {
-    if (!client || !currentUserId || busy || testRowId) return;
-    const user = currentUserId;
-    setBusy(true);
-    probeStatus('Salvataggio del movimento dimostrativo in corso…');
-    try {
-      const {data, error} = await client.rpc('finance_save_transaction', {
-        p_id: null,
-        p_transaction_date: localDate(),
-        p_kind: 'expense',
-        p_amount_cents: 123,
-        p_description: TEST_DESCRIPTION,
-        p_allocations: [{category:'Altro',subcategory:'Test sincronizzazione',amount_cents:123,category_id:null}],
-        p_legacy_id: TEST_MARKER
-      });
-      if (error) throw error;
-      if (!data) throw new Error('Il server non ha restituito l’identificativo del movimento.');
-      if (currentUserId !== user) return;
-      probeStatus('Movimento salvato. Ora verifico che sia leggibile dal cloud…');
-    } catch (err) {
-      probeStatus('Salvataggio NON confermato: '+(err.message || 'Errore di rete')+'. Premi 1 per verificare se il dato è presente.',true);
-      return;
-    } finally { setBusy(false); }
-    await readProbe();
-  }
-  async function deleteProbe() {
-    if (!client || !currentUserId || !testRowId || busy) return;
-    if (!window.confirm('Eliminare SOLO il movimento dimostrativo da 1,23 € creato nel test?')) return;
-    const user=currentUserId, id=testRowId;
-    setBusy(true);
-    probeStatus('Eliminazione del movimento di prova in corso…');
-    try {
-      const {data,error} = await client.from('finance_transactions').delete()
-        .eq('id',id).eq('user_id',user).eq('legacy_id',TEST_MARKER).select('id');
-      if (error) throw error;
-      if (!data || data.length !== 1) throw new Error('Nessun movimento eliminato; verifica lo stato del database.');
-      if (currentUserId !== user) return;
-      testRowId=null;
-      probeStatus('Movimento di prova eliminato. Ora verifico che non sia più presente…');
-    } catch (err) {
-      probeStatus('Cancellazione non confermata: '+(err.message || 'Errore di rete'),true);
-      return;
-    } finally {setBusy(false);}
-    await readProbe();
-  }
+  let generation = 0;
+  const views = ['v3SetPassword','v3Login','v3Success'];
   function show(view, heading, description) {
     views.forEach(id => $(id).classList.toggle('v3-hidden', id !== view));
     $('v3Title').textContent = heading;
@@ -273,37 +134,95 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
     $('v3Status').textContent = text;
     $('v3Status').classList.toggle('ok', ok);
   }
-  function readyForConfig() {
-    show('v3Config', 'Collega Supabase', 'Un solo passaggio per provare l’accesso al tuo account.');
+  function lock() {
+    generation++;
+    clearDashboard();
+    $('v3AuthRoot').hidden = false;
   }
-  function signedIn(email, userId) {
-    currentUserId = userId;
-    testRowId = null;
-    probeReadOk = false;
-    probeUnexpected = false;
-    show('v3Success', 'Accesso riuscito', 'Ora verifichiamo la sincronizzazione dei movimenti.');
-    $('v3UserEmail').textContent = email || 'Utente autenticato';
-    updateProbeButtons();
-    message('La sessione è attiva.', true);
-    void readProbe();
+  async function rows(table, columns, owner, key = 'id') {
+    const result = [];
+    let cursor;
+    for (;;) {
+      let query = client.from(table).select(columns).eq('user_id',owner).order(key).limit(500);
+      if (cursor) query = query.gt(key,cursor);
+      const {data,error} = await query;
+      if (error) throw error;
+      if (!data.length) return result;
+      result.push(...data);
+      cursor = data[data.length-1][key];
+    }
+  }
+  async function signedIn(email, owner) {
+    const sameAccount = owner === currentUserId;
+    const previousView = sameAccount ? {tab,month,filter} : null;
+    lock();
+    currentUserId = owner;
+    const request = generation;
+    show('v3Success','Caricamento','Lettura dei tuoi dati da Supabase…');
+    $('v3UserEmail').textContent = email;
+    try {
+      const [tx, assets, settings] = await Promise.all([
+        rows('finance_transactions','id,updated_at,transaction_date,kind,amount_cents,description,finance_allocations(category_id,amount_cents,category_name_snapshot,subcategory_name_snapshot)',owner),
+        rows('finance_assets','id,updated_at,name,kind,value_cents',owner),
+        rows('finance_settings','user_id,monthly_budget_cents,theme,updated_at',owner,'user_id')
+      ]);
+      if (generation !== request) return;
+      const transactions = tx.map(t => {
+        const splits = t.finance_allocations.map(a => ({category_id:a.category_id,category:a.category_name_snapshot || 'Altro',
+          subcategory:a.subcategory_name_snapshot || '', amount:a.amount_cents/100}));
+        if (t.finance_allocations.reduce((n,a)=>n+a.amount_cents,0)!==t.amount_cents)
+          throw new Error('Le quote ricevute non coincidono con il totale del movimento.');
+        return {id:t.id,version:t.updated_at,type:t.kind,date:t.transaction_date,amount:t.amount_cents/100,
+          note:t.description,category:splits[0]?.category,subcategory:splits[0]?.subcategory,splits};
+      });
+      state = {transactions, assets:assets.map(a=>({...a,value:a.value_cents/100})),
+        owner,settings:settings[0], budget:(settings[0]?.monthly_budget_cents || 0)/100};
+      if (previousView) ({tab,month,filter} = previousView);
+      render();
+      $('workspace').hidden = false;
+      $('v3AuthRoot').hidden = true;
+    } catch (error) {
+      if (generation !== request) return;
+      clearDashboard();
+      show('v3Success','Dati non disponibili','Puoi riprovare la lettura o uscire dall’account.');
+      message(error.message);
+    }
   }
   function signedOut() {
+    lock();
     currentUserId = null;
-    testRowId = null;
-    probeReadOk = false;
-    probeUnexpected = false;
-    busy = false;
-    updateProbeButtons();
-    show('v3Login', 'Bentornato', 'Accedi con l’email e la password dell’utente creato in Supabase.');
+    $('v3UserEmail').textContent = '';
+    show('v3Login','Bentornato','Accedi con il tuo account Finanze.');
   }
+  async function persist(change) {
+    const owner = currentUserId;
+    const request = generation;
+    const {data:identity,error:authError} = await client.auth.getUser();
+    if (authError || !owner || identity?.user?.id !== owner || request !== generation)
+      throw Error('Sessione cambiata. Riapri la schermata.');
+    const {data,error} = await change(client,owner);
+    if (error) throw error;
+    if (!data) throw Error('Dato già modificato o eliminato. Aggiorna dal cloud.');
+    if (request !== generation) throw Error('Sessione cambiata.');
+  }
+  window.financeWrite = persist;
   async function init(key) {
     if (!window.supabase || typeof window.supabase.createClient !== 'function') {
-      readyForConfig();
+      signedOut();
       message('Impossibile caricare la libreria Supabase. Verifica la connessione Internet e ricarica la pagina.');
       return;
     }
     client = window.supabase.createClient(SUPABASE_URL, key, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'finanze_v3_test_auth_session' }
+    });
+    client.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') { setPassword = false; signedOut(); }
+      if (event === 'PASSWORD_RECOVERY') {
+        setPassword = true;
+        lock();
+        show('v3SetPassword','Scegli la tua password','Usa almeno otto caratteri.');
+      }
+      if (event === 'SIGNED_IN' && currentUserId && currentUserId !== session?.user?.id) location.reload();
     });
     initialized = true;
     signedOut();
@@ -311,35 +230,39 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
     try {
       const { data, error } = await client.auth.getUser();
       if (error && error.name !== 'AuthSessionMissingError') throw error;
-      if (data?.user) signedIn(data.user.email, data.user.id);
+      if (data?.user && setPassword) show('v3SetPassword','Scegli la tua password','Usa almeno otto caratteri.');
+      else if (data?.user) signedIn(data.user.email, data.user.id);
       else signedOut();
     } catch (err) {
       signedOut();
       message('Controllo sessione non riuscito: ' + (err.message || 'Errore di rete'));
     }
-    client.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') signedOut();
-      // L'evento SIGNED_IN è confermato anche dalla chiamata getUser / signInWithPassword.
-    });
   }
-  $('v3ConfigForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const key = $('v3Key').value.trim();
-    if (!key.startsWith('sb_publishable_')) {
-      message('Usa esclusivamente una chiave che inizia con sb_publishable_.');
-      return;
-    }
-    try { localStorage.setItem(CONFIG_STORAGE, key); }
-    catch (e) { message('Impossibile salvare la configurazione nel browser.'); return; }
-    await init(key);
-  });
-  $('v3ChangeConfig').addEventListener('click', async () => {
-    if (client) { try { await client.auth.signOut(); } catch (e) { /* use login view */ } }
-    localStorage.removeItem(CONFIG_STORAGE);
-    client = null;
-    initialized = false;
-    readyForConfig();
-  });
+  $('choosePassword').onsubmit = async event => {
+    event.preventDefault();
+    const btn = event.target.querySelector('button');
+    btn.disabled = true;
+    try {
+      const {data,error} = await client.auth.updateUser({password:$('newPassword').value});
+      if (error) throw error;
+      $('newPassword').value = '';
+      setPassword = false;
+      await signedIn(data.user.email,data.user.id);
+    } catch (error) { message(error.message); }
+    finally { btn.disabled = false; }
+  };
+  $('forgotPassword').onclick = async () => {
+    const email = $('v3Email');
+    if (!email.reportValidity()) return;
+    const btn = $('forgotPassword');
+    btn.disabled = true;
+    try {
+      const {error} = await client.auth.resetPasswordForEmail(email.value.trim(),{redirectTo:new URL('./',location.href).href});
+      if (error) throw error;
+      message('Se l’indirizzo è registrato, riceverai un’email per scegliere una nuova password.',true);
+    } catch (error) { message(error.message); }
+    finally { btn.disabled = false; }
+  };
   $('v3LoginForm').addEventListener('submit', async e => {
     e.preventDefault();
     if (!client || !initialized) return;
@@ -359,11 +282,10 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
       message('Accesso non riuscito: ' + (err.message || 'Errore di rete'));
     } finally { btn.disabled = false; }
   });
-  $('v3ProbeRead').addEventListener('click', readProbe);
-  $('v3ProbeWrite').addEventListener('click', writeProbe);
-  $('v3ProbeDelete').addEventListener('click', deleteProbe);
+  $('reloadCloud').onclick = () => currentUserId && signedIn($('v3UserEmail').textContent,currentUserId);
   $('v3LogoutBtn').addEventListener('click', async () => {
     if (!client) return;
+    lock();
     $('v3LogoutBtn').disabled = true;
     message('Uscita in corso…', true);
     try {
@@ -374,9 +296,7 @@ render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))wi
     } catch (err) { message('Impossibile uscire: ' + (err.message || 'Errore di rete')); }
     finally { $('v3LogoutBtn').disabled = false; }
   });
-  const key = localStorage.getItem(CONFIG_STORAGE);
-  if (key && key.startsWith('sb_publishable_')) init(key);
-  else readyForConfig();
+  init(PUBLIC_KEY);
   // Aggiorna il service worker già presente nella sola sottocartella /finanze-v3/.
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js', { updateViaCache:'none' }).catch(() => {}));
